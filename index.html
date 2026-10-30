@@ -478,6 +478,26 @@
       margin-bottom: 4px;
     }
 
+    .meterai-badge {
+      width: 62px;
+      height: 38px;
+      border: 1px dashed #94a3b8;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 7.5px;
+      font-weight: 700;
+      color: #64748b;
+      letter-spacing: 0.2px;
+      line-height: 1.15;
+      text-transform: uppercase;
+      margin-bottom: -34px;
+      background: rgba(248, 250, 252, 0.95);
+      z-index: 1;
+    }
+
     .sig-name {
       font-weight: 700;
       color: #0f172a;
@@ -603,6 +623,10 @@
           <td class="meta-val"><input type="text" class="input-edit text-right" id="invDueDateText" value="07 November 2025" style="width: 140px; font-weight: 600;"></td>
         </tr>
         <tr>
+          <td class="meta-label">No. PO / SPK:</td>
+          <td class="meta-val"><input type="text" class="input-edit text-right" id="invPoNumber" value="PO-TAS/MDL/2025/10" placeholder="-" style="width: 165px; font-weight: 600;"></td>
+        </tr>
+        <tr>
           <td class="meta-label">Kegiatan:</td>
           <td class="meta-val"><input type="text" class="input-edit text-right" id="invProjectCode" value="MDL ESPORTS INDONESIA" style="width: 165px; font-weight: 600;"></td>
         </tr>
@@ -684,8 +708,10 @@
         <span style="color: var(--text-muted);">Atas Nama (A/N):</span>
         <input type="text" class="input-edit text-right" id="bankAccName" value="Arthur Reezan" style="width: 180px; font-weight: 600;">
       </div>
-      <div style="margin-top: 8px; font-size: 10.5px; color: var(--text-muted); line-height: 1.35;">
-        *Honorarium didistribusikan langsung ke rekening masing-masing panitia mahasiswa segera setelah pencairan dari manajemen MDL selesai.
+      <div style="margin-top: 8px; font-size: 10px; color: var(--text-muted); line-height: 1.45; border-top: 1px dashed var(--border); padding-top: 6px;">
+        <div>• <b>Status Perpajakan:</b> Tagihan Non-PKP (Bebas / Tidak Memungut PPN 11%).</div>
+        <div>• <b>Sifat Pembayaran:</b> Netto (diterima bersih untuk langsung disalurkan ke 16 panitia).</div>
+        <div>• Bukti konfirmasi transfer mohon dikirimkan kepada Koordinator Lapangan.</div>
       </div>
     </div>
 
@@ -723,7 +749,10 @@
   <div class="signatures-container">
     <div class="sig-card">
       <div class="sig-role">Diajukan Oleh,<br>(Koordinator Pasukan)</div>
-      <div>
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
+        <div class="meterai-badge" title="Area Meterai Rp 10.000 (UU Bea Meterai No. 10/2020)">
+          Meterai<br>Rp 10.000
+        </div>
         <div class="sig-line"></div>
         <div class="sig-name">Arthur Reezan</div>
         <div class="sig-title">Koordinator Mahasiswa UKRIDA</div>
@@ -899,6 +928,7 @@
         invNumber: document.getElementById('invNumber').value,
         invDateText: document.getElementById('invDateText').value,
         invDueDateText: document.getElementById('invDueDateText').value,
+        invPoNumber: document.getElementById('invPoNumber').value,
         invProjectCode: document.getElementById('invProjectCode').value,
         clientName: document.getElementById('clientName').value,
         clientInstitution: document.getElementById('clientInstitution').value,
@@ -956,6 +986,7 @@
         if (data.invNumber) document.getElementById('invNumber').value = data.invNumber;
         if (data.invDateText) document.getElementById('invDateText').value = data.invDateText;
         if (data.invDueDateText) document.getElementById('invDueDateText').value = data.invDueDateText;
+        if (data.invPoNumber) document.getElementById('invPoNumber').value = data.invPoNumber;
         if (data.invProjectCode) document.getElementById('invProjectCode').value = data.invProjectCode;
         if (data.clientName) document.getElementById('clientName').value = data.clientName;
         if (data.clientInstitution) document.getElementById('clientInstitution').value = data.clientInstitution;
@@ -1040,6 +1071,7 @@
       try {
         const data = JSON.parse(saved);
         if (data.workers && data.workers.length > 0) {
+          if (data.invPoNumber) document.getElementById('invPoNumber').value = data.invPoNumber;
           if (data.clientName) document.getElementById('clientName').value = data.clientName;
           if (data.clientInstitution) document.getElementById('clientInstitution').value = data.clientInstitution;
           if (data.clientAddress) document.getElementById('clientAddress').value = data.clientAddress;

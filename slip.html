@@ -720,7 +720,7 @@
     { id: 2, name: "Nathanael", nim: "422026010", role: "Runner Logistic", daysCount: 8, isUsher: false },
     { id: 3, name: "Nelson Kusuma", nim: "412023008", role: "Runner Logistic", daysCount: 8, isUsher: false },
     { id: 4, name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", daysCount: 8, isUsher: false },
-    { id: 5, name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Ketua UKM Esports)", daysCount: 8, isUsher: false },
+    { id: 5, name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Ketua UKM Esports)", daysCount: 6, isUsher: false },
     
     // Floor : 6 (Mulai Rabu - 5 Hari Kerja)
     { id: 6, name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
@@ -734,8 +734,8 @@
     { id: 12, name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", daysCount: 4, isRegistration: true, isUsher: false },
     { id: 13, name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", daysCount: 4, isRegistration: true, isUsher: false },
 
-    // Broadcast Officer : 1 (8 Hari)
-    { id: 14, name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer", daysCount: 8, isUsher: false },
+    // Broadcast Officer : 1 (8 Hari + Pengganti Siddharta)
+    { id: 14, name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer (+ Pengganti Siddharta)", daysCount: 8, isUsher: false },
 
     // Usher Awarding : 2 (Khusus Day 1 & Day 4 = 2 Hari)
     { id: 15, name: "Cristabel Grasilia Angelica", nim: "422026008", role: "Usher Awarding (Day 1 & 4)", daysCount: 2, isUsher: true },
@@ -782,6 +782,8 @@
     if (status === 'hadir') return 'Hadir Penuh (11 Jam)';
     if (status === 'telat') return 'Hadir Telat / Jam Kurang';
     if (status === 'izin') return 'Izin / Tidak Hadir';
+    if (status === 'ganti') return 'Hadir + Gantikan Crew';
+    if (status === 'double') return 'Double Shift (22 Jam)';
     return 'Libur Shift';
   }
 
@@ -802,6 +804,10 @@
       document.getElementById('dispShiftStatus').innerText = "Mulai Rabu s.d. Minggu (5 Hari Kerja Penuh)";
     } else if (student.isRegistration) {
       document.getElementById('dispShiftStatus').innerText = "Penugasan 4 Hari Kerja Registrasi";
+    } else if (student.id === 14) {
+      document.getElementById('dispShiftStatus').innerText = "Broadcast Officer + Pengganti Runner Logistic";
+    } else if (student.id === 5) {
+      document.getElementById('dispShiftStatus').innerText = "Runner Logistic (Penyesuaian Jam Riil)";
     } else {
       document.getElementById('dispShiftStatus').innerText = "Aktif Penuh (8 Hari Operasional)";
     }
@@ -827,6 +833,8 @@
           <select class="screen-only status-select" onchange="onRowStatusChange(${idx}, this.value)">
             <option value="hadir" ${row.status === 'hadir' ? 'selected' : ''}>Hadir Penuh (11 Jam)</option>
             <option value="telat" ${row.status === 'telat' ? 'selected' : ''}>Hadir Telat / Jam Kurang</option>
+            <option value="ganti" ${row.status === 'ganti' ? 'selected' : ''}>Hadir + Gantikan Crew</option>
+            <option value="double" ${row.status === 'double' ? 'selected' : ''}>Double Shift (22 Jam)</option>
             <option value="izin" ${row.status === 'izin' ? 'selected' : ''}>Tidak Hadir / Izin</option>
             <option value="off" ${row.status === 'off' ? 'selected' : ''}>Libur Shift</option>
           </select>
@@ -975,6 +983,59 @@
             notes: 'Shift Penuh 11 Jam Efektif'
           };
         }
+      } else if (student.id === 14) {
+        // Kristofer Ryan Giggs Eka Saputra (Broadcast Officer + Pengganti Siddharta)
+        if (d.dayIndex === 1) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'double',
+            shiftTime: '10:00 - 23:00 (Double Shift)',
+            hoursWorked: 22,
+            lateHours: 0,
+            notes: 'Broadcast (11 Jam) + Gantikan Runner Logistic Siddharta (11 Jam)'
+          };
+        } else if (d.dayIndex === 2) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'double',
+            shiftTime: '10:00 - 23:00 (Double Shift)',
+            hoursWorked: 22,
+            lateHours: 0,
+            notes: 'Broadcast (11 Jam) + Gantikan Runner Logistic Siddharta (11 Jam)'
+          };
+        } else if (d.dayIndex === 3) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'ganti',
+            shiftTime: '10:00 - 23:00 (+4 Jam)',
+            hoursWorked: 15,
+            lateHours: 0,
+            notes: 'Broadcast (11 Jam) + Cover Jam Telat Siddharta (4 Jam)'
+          };
+        } else if (d.dayIndex === 4) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'ganti',
+            shiftTime: '10:00 - 23:00 (+2.7 Jam)',
+            hoursWorked: 13.7,
+            lateHours: 0,
+            notes: 'Broadcast (11 Jam) + Cover Jam Telat Siddharta (2.7 Jam)'
+          };
+        } else {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'hadir',
+            shiftTime: '10:00 - 23:00',
+            hoursWorked: 11,
+            lateHours: 0,
+            notes: 'Shift Penuh 11 Jam Efektif (Broadcast)'
+          };
+        }
       } else {
         return {
           dayIndex: d.dayIndex,
@@ -1009,6 +1070,16 @@
       rowData.lateHours = 0;
       rowData.shiftTime = '10:00 - 23:00';
       rowData.notes = 'Hadir tepat waktu shift penuh';
+    } else if (newStatus === 'double') {
+      rowData.hoursWorked = 22;
+      rowData.lateHours = 0;
+      rowData.shiftTime = '10:00 - 23:00 (Double Shift)';
+      rowData.notes = 'Double shift / Gantikan crew lain (22 Jam)';
+    } else if (newStatus === 'ganti') {
+      if (rowData.hoursWorked <= 11) rowData.hoursWorked = 15;
+      rowData.lateHours = 0;
+      rowData.shiftTime = '10:00 - 23:00 (+Overtime)';
+      rowData.notes = 'Hadir shift penuh + cover jam crew lain';
     } else if (newStatus === 'telat') {
       if (rowData.hoursWorked >= 11) rowData.hoursWorked = 10;
       rowData.lateHours = 11 - rowData.hoursWorked;
@@ -1048,6 +1119,8 @@
         rowData.lateHours = 0;
         tr.querySelector('.status-select').value = 'hadir';
       }
+    } else if (rowData.status === 'ganti' || rowData.status === 'double') {
+      rowData.lateHours = 0;
     } else if (rowData.status === 'izin') {
       rowData.lateHours = 11;
     } else {
@@ -1067,8 +1140,14 @@
   function calculateRow(tr, rowData) {
     let dayPay = 0;
     if (rowData.status === 'hadir') {
-      dayPay = RATE_PER_DAY;
+      if (rowData.hoursWorked > 11) {
+        dayPay = Math.round(rowData.hoursWorked * RATE_PER_HOUR);
+      } else {
+        dayPay = RATE_PER_DAY;
+      }
     } else if (rowData.status === 'telat') {
+      dayPay = Math.round(rowData.hoursWorked * RATE_PER_HOUR);
+    } else if (rowData.status === 'ganti' || rowData.status === 'double') {
       dayPay = Math.round(rowData.hoursWorked * RATE_PER_HOUR);
     } else {
       dayPay = 0;
@@ -1138,7 +1217,7 @@
     });
 
     try {
-      localStorage.setItem('arthur_mdl_timesheets_data_v5', JSON.stringify(allTimesheets));
+      localStorage.setItem('arthur_mdl_timesheets_data_v6', JSON.stringify(allTimesheets));
     } catch(e) {}
   }
 
@@ -1153,7 +1232,7 @@
 
   function loadSavedData() {
     try {
-      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v5');
+      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v6');
       if (saved) {
         allTimesheets = JSON.parse(saved);
       }

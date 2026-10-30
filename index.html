@@ -814,9 +814,9 @@
       <td><input type="text" class="worker-name" placeholder="Nama Mahasiswa" value="${data.name || ''}" oninput="saveAndRecalc()"></td>
       <td><input type="text" class="worker-nim text-center" placeholder="NIM" value="${data.nim || ''}" oninput="saveAndRecalc()"></td>
       <td><input type="text" class="worker-role" placeholder="Divisi / Tugas" value="${data.role || ''}" oninput="saveAndRecalc()"></td>
-      <td><input type="number" class="worker-days text-center" min="1" max="30" value="${days}" oninput="onDaysOrHoursChange(this)"></td>
-      <td><input type="number" class="worker-hours-day text-center" min="1" max="24" value="${hoursPerDay}" oninput="onDaysOrHoursChange(this)"></td>
-      <td><input type="number" class="worker-total-hours text-center" min="0" value="${totalHours}" oninput="onTotalHoursChange(this)" style="font-weight: 700;"></td>
+      <td><input type="number" class="worker-days text-center" min="1" max="30" step="any" value="${days}" oninput="onDaysOrHoursChange(this)"></td>
+      <td><input type="number" class="worker-hours-day text-center" min="1" max="24" step="any" value="${hoursPerDay}" oninput="onDaysOrHoursChange(this)"></td>
+      <td><input type="number" class="worker-total-hours text-center" min="0" step="any" value="${totalHours}" oninput="onTotalHoursChange(this)" style="font-weight: 700;"></td>
       <td><input type="number" class="worker-rate text-right" placeholder="0" min="0" step="500" value="${hourlyRate}" oninput="calculateWorkerRow(this)"></td>
       <td class="text-right worker-subtotal" style="font-weight: 700;">Rp 0</td>
       <td class="col-action text-center no-print">
@@ -963,13 +963,13 @@
         });
       });
 
-      localStorage.setItem('arthur_invoice_data_hourly_mdl_v5', JSON.stringify(data));
+      localStorage.setItem('arthur_invoice_data_hourly_mdl_v6', JSON.stringify(data));
     } catch(e) {}
   }
 
   function exportJSON() {
     saveToStorage();
-    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v5');
+    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v6');
     if (!data) return;
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -1034,7 +1034,7 @@
       { name: "Nathanael", nim: "422026010", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
       { name: "Nelson Kusuma", nim: "412023008", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
       { name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
-      { name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Ketua UKM Esports)", days: 8, hoursPerDay: 11, rate: 13636 },
+      { name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Penyesuaian 59,3 Jam)", days: 6, hoursPerDay: 9.88, totalHours: 59.3, rate: 13636 },
       
       // Floor Officer : 6 (5 Hari Kerja Mulai Rabu x 11 Jam = 55 Jam)
       { name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
@@ -1048,8 +1048,8 @@
       { name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", days: 4, hoursPerDay: 11, rate: 13636 },
       { name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", days: 4, hoursPerDay: 11, rate: 13636 },
 
-      // Broadcast Officer : 1 (8 Hari Kerja x 11 Jam = 88 Jam)
-      { name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer", days: 8, hoursPerDay: 11, rate: 13636 },
+      // Broadcast Officer : 1 (8 Hari + Pengganti Siddharta = 116,7 Jam)
+      { name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer (+ Pengganti Siddharta)", days: 8, hoursPerDay: 14.59, totalHours: 116.7, rate: 13636 },
 
       // Usher Awarding : 2 (Khusus Day 1 & Day 4 = 2 Hari Kerja x 11 Jam = 22 Jam)
       { name: "Cristabel Grasilia Angelica", nim: "422026008", role: "Usher Awarding (Day 1 & 4)", days: 2, hoursPerDay: 11, rate: 13636 },
@@ -1066,12 +1066,12 @@
       document.getElementById('downPaymentInput').value = 0;
       addWorkerRow();
       calculateAll();
-      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v5');
+      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v6');
     }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v5');
+    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v6');
     if (saved) {
       try {
         const data = JSON.parse(saved);

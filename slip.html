@@ -1058,21 +1058,22 @@
     <div class="wa-modal-body">
       <!-- NOTICE: AUTO-SEND BOT / USERSCRIPT -->
       <div class="wa-notice-box">
-        <div>
+        <div style="flex: 1; min-width: 320px;">
           <div class="wa-notice-title">
-            <span>⚡ Ingin Pesan Otomatis Langsung Terkirim & Tab Tertutup Tanpa Tekan Send Manual?</span>
+            <span>⚡ Cara Mengirim Tanpa Ribet (Pilih Jalur Termudah):</span>
           </div>
           <div class="wa-notice-desc">
-            Meta/WhatsApp secara bawaan membatasi link luar hanya untuk membuka draft chat. Pasang ekstensi <b>Tampermonkey</b> lalu klik tombol di samping untuk mengaktifkan skrip <b>Auto-Send & Auto-Close</b> 100% otomatis!
+            <b>Jalur A (Tanpa Install Apapun — Cepat):</b> Saat tab WhatsApp terbuka otomatis, kamu cukup tekan tombol <b>Enter</b> di keyboard (pesan langsung terkirim), lalu tekan <b>Ctrl + W</b> untuk tutup tab. Hanya 1 detik per orang!<br>
+            <b>Jalur B (100% Hands-Free):</b> Pasang ekstensi <b>Tampermonkey</b> dulu, lalu pasang skrip di bawah agar tombol Send ditekan otomatis & tab tertutup sendiri.
           </div>
         </div>
-        <div style="display: flex; gap: 8px; align-items: center; flex-shrink: 0;">
-          <a href="whatsapp-autosend.user.js" target="_blank" class="btn btn-wa-sm" style="text-decoration: none; font-weight: 700; background: #16a34a; color: white;">
-            📥 Pasang Script Auto-Send (Tampermonkey)
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" class="btn btn-outline" style="font-size: 11px; background: white; text-decoration: none;">
+            🧩 1. Pasang Tampermonkey Chrome
           </a>
-          <button class="btn btn-outline" style="font-size: 11px; background: white;" onclick="alert('CARA AKTIFKAN 100% AUTO-SEND:\\n\\n1. Pasang ekstensi Tampermonkey di Chrome/Firefox (https://www.tampermonkey.net).\\n2. Klik tombol hijau [Pasang Script Auto-Send]. Tampermonkey akan terbuka dan klik tombol [Install].\\n3. Selesai! Sekarang saat kamu klik [Kirim Semua Terpilih] di sini, setiap tab WhatsApp Web akan langsung otomatis mengklik tombol Send dan menutup tab sendiri setelah terkirim!')">
-            ❓ Panduan 3 Langkah
-          </button>
+          <a href="whatsapp-autosend.user.js" target="_blank" class="btn btn-wa-sm" style="text-decoration: none; font-weight: 700; background: #16a34a; color: white;">
+            📥 2. Pasang Script Auto-Send
+          </a>
         </div>
       </div>
 

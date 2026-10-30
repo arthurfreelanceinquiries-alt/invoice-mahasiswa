@@ -630,10 +630,10 @@
   <div class="parties-wrapper">
     <div class="party-col">
       <h4>Ditujukan Kepada (Penyelenggara / Klien):</h4>
-      <input type="text" class="input-edit party-name" id="clientName" value="Pak Hudi (PIC Acara & Tim Manajemen MDL)" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="clientInstitution" value="Panitia Penyelenggara MDL Esports Indonesia" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="clientAddress" value="Venue / Kampus UKRIDA Jakarta Barat" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="clientContact" value="PIC Lapangan: Pak Hudi (MDL Indonesia)" style="width: 100%;">
+      <input type="text" class="input-edit party-name" id="clientName" value="PT. Teknologi Abadi Sejahtera" style="width: 100%;">
+      <input type="text" class="input-edit party-sub" id="clientInstitution" value="U.p. Pak Hudi (PIC Acara & Tim Manajemen MDL)" style="width: 100%;">
+      <input type="text" class="input-edit party-sub" id="clientAddress" value="Jl. Tanjung Duren Barat I, 5, Tanjung Duren Utara" style="width: 100%;">
+      <input type="text" class="input-edit party-sub" id="clientContact" value="Grogol Petamburan, Kota Adm. Jakarta Barat, DKI Jakarta 11470" style="width: 100%;">
     </div>
 
     <div class="party-col">
@@ -749,11 +749,11 @@
     </div>
 
     <div class="sig-card">
-      <div class="sig-role">Diterima & Disahkan Oleh,<br>(Penyelenggara MDL)</div>
+      <div class="sig-role">Diterima & Disahkan Oleh,<br>(Penyelenggara / Klien)</div>
       <div>
         <div class="sig-line"></div>
         <div class="sig-name">Pak Hudi</div>
-        <div class="sig-title">PIC MDL Esports Indonesia</div>
+        <div class="sig-title">PT. Teknologi Abadi Sejahtera</div>
       </div>
     </div>
   </div>
@@ -928,13 +928,13 @@
         });
       });
 
-      localStorage.setItem('arthur_invoice_data_hourly_mdl_v2', JSON.stringify(data));
+      localStorage.setItem('arthur_invoice_data_hourly_mdl_v3', JSON.stringify(data));
     } catch(e) {}
   }
 
   function exportJSON() {
     saveToStorage();
-    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v2');
+    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v3');
     if (!data) return;
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -1030,16 +1030,20 @@
       document.getElementById('downPaymentInput').value = 0;
       addWorkerRow();
       calculateAll();
-      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v2');
+      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v3');
     }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v2');
+    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v3');
     if (saved) {
       try {
         const data = JSON.parse(saved);
         if (data.workers && data.workers.length > 0) {
+          if (data.clientName) document.getElementById('clientName').value = data.clientName;
+          if (data.clientInstitution) document.getElementById('clientInstitution').value = data.clientInstitution;
+          if (data.clientAddress) document.getElementById('clientAddress').value = data.clientAddress;
+          if (data.clientContact) document.getElementById('clientContact').value = data.clientContact;
           data.workers.forEach(w => addWorkerRow(w));
           calculateAll();
           return;

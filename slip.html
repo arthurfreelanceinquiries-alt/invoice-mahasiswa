@@ -1115,23 +1115,21 @@
       <div class="wa-notice-box" id="waInstallGuideBox">
         <div style="flex: 1; min-width: 320px;">
           <div class="wa-notice-title">
-            <span>⚡ Zero Tab Bloat: 1 Tab WhatsApp Web Dipakai Ulang & Tab Tidak Ditutup:</span>
+            <span>⚡ Zero Tab Bloat (Khusus Firefox & Chrome): 1 Tab WhatsApp Web Dipakai Ulang:</span>
           </div>
           <div class="wa-notice-desc">
-            <b>Jalur Utama (Ekstensi Chrome):</b> Buka <code>chrome://extensions</code> → aktifkan
-            <b>Developer mode</b> → <b>Load unpacked</b> → pilih folder <code>extension/</code>.
-            Setelah aktif, badge hijau <b>🟢 Mode 1-Tab Otomatis Aktif</b> muncul di atas.<br>
-            <b>Jalur Alternatif (Tampermonkey v3.0):</b> Pasang Tampermonkey, lalu install/update
-            script v3.0 di samping. Script memakai <code>GM_setValue</code> lintas-tab agar tidak
-            membuka tab WhatsApp baru.
+            <b>🦊 Jika Memakai Firefox:</b><br>
+            • <b>Cara 1 (Tampermonkey Firefox - Rekomendasi Permanen):</b> Pasang <a href="https://addons.mozilla.org/firefox/addon/tampermonkey/" target="_blank" style="color: #166534; font-weight: 700;">Tampermonkey di Firefox (klik di sini)</a>, lalu klik tombol hijau <b>Pasang Userscript v3.0</b> di samping. Selesai!<br>
+            • <b>Cara 2 (Load Add-on Firefox Langsung):</b> Buka tab baru ketik <code>about:debugging#/runtime/this-firefox</code> → klik <b>Load Temporary Add-on...</b> → pilih berkas <code>manifest.json</code> di folder <code>extension/</code> (atau <code>arthur-mdl-dispatcher.xpi</code>).<br>
+            <b>🌐 Jika Memakai Chrome:</b> Buka <code>chrome://extensions</code> → Developer mode → Load unpacked folder <code>extension/</code>.
           </div>
         </div>
         <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-          <a href="https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo" target="_blank" class="btn btn-outline" style="font-size: 11px; background: white; text-decoration: none;">
-            🧩 1. Pasang Tampermonkey Chrome
+          <a href="https://addons.mozilla.org/firefox/addon/tampermonkey/" target="_blank" class="btn btn-outline" style="font-size: 11px; background: white; text-decoration: none;">
+            🦊 Pasang Tampermonkey Firefox
           </a>
           <a href="https://raw.githubusercontent.com/arthurfreelanceinquiries-alt/invoice-mahasiswa/main/whatsapp-autosend.user.js" target="_blank" class="btn btn-wa-sm" style="text-decoration: none; font-weight: 700; background: #16a34a; color: white;">
-            📥 2. Pasang / Update Userscript (v3.0)
+            📥 Pasang / Update Userscript v3.0
           </a>
         </div>
       </div>

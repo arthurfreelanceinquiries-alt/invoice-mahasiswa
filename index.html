@@ -95,6 +95,18 @@
       background: #dbeafe;
     }
 
+    .btn-wa {
+      background: #25d366 !important;
+      color: #ffffff !important;
+      border: 1px solid #1ebe57 !important;
+      font-weight: 700 !important;
+      cursor: pointer;
+    }
+    .btn-wa:hover {
+      background: #1ebe57 !important;
+      color: #ffffff !important;
+    }
+
     .quick-rate-box {
       display: flex;
       align-items: center;
@@ -580,6 +592,7 @@
 <div class="toolbar-container no-print">
   <div class="toolbar-left">
     <a href="slip.html" class="btn btn-nav-slip">🧾 Buka Slip Per Mahasiswa (16 Org) ➔</a>
+    <a href="slip.html?action=wa" class="btn btn-wa" style="text-decoration: none;">💬 Kirim via WhatsApp Web</a>
     <div class="quick-rate-box">
       <span>Tarif Cepat/Jam: Rp</span>
       <input type="number" id="quickRateInput" value="13636" min="0" step="500">

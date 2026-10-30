@@ -1,72 +1,73 @@
-# 📋 Invoice & Payroll Generator Mahasiswa (Event & Organization Edition)
+# 📋 Invoice & Payroll Jam Kerja Panitia Mahasiswa (MDL Esports Edition)
 
-> **Sistem Pembuatan Dokumen Invoice, Honorarium Tim Mahasiswa (NIM), dan Rekapitulasi Reimbursement Operasional.**  
-> Siap Cetak PDF Standar A4, Interaktif Tanpa Backend, Dilengkapi Fitur Auto-Save LocalStorage & Export/Import JSON.
-
----
-
-## 🌟 Fitur Utama
-
-1. **Pemilahan 2 Kluster Akuntansi:**
-   - **Kluster 1: Honorarium & Gaji Mahasiswa:** Dilengkapi kolom `Nama Lengkap`, `NIM (Nomor Induk Mahasiswa)`, `Divisi / Peran`, `Durasi/Volume`, dan `Tarif (Rp)`. Sesuai standar administrasi kampus, BEM, kepanitiaan, atau proyek lepas (freelance).
-   - **Kluster 2: Penggantian Pengeluaran (Reimbursement / At Cost):** Kolom `Tanggal`, `Nama Barang/Jasa`, `Toko / No. Nota Bukti`, `Qty`, dan `Harga Satuan`.
-2. **Kalkulasi & Terbilang Rupiah Otomatis:**
-   - Menghitung subtotal honor dan subtotal belanja secara instan (*real-time*).
-   - Mendukung input **Uang Muka / Kasbon (DP)** sebagai pengurang tagihan.
-   - Mengonversi total angka secara otomatis ke format kalimat terbilang Bahasa Indonesia (contoh: *"Dua Juta Lima Ratus Ribu Rupiah"*).
-3. **Penyimpanan Lokal & Portabilitas Data:**
-   - **Auto-Save LocalStorage:** Data yang diisi tidak akan hilang saat browser di-refresh atau ditutup.
-   - **Export / Import JSON:** Kemudahan menyimpan data per event (misal: *Invoice_MDL.json*, *Invoice_Seminar.json*) dan membukanya kembali kapan saja.
-4. **Siap Cetak / Export PDF (Standar A4):**
-   - Menggunakan *CSS Print Media Query* yang rapi.
-   - Tombol-tombol navigasi dan aksi otomatis disembunyikan saat mencetak.
-   - Format input otomatis dikonversi menjadi teks dokumen formal.
-5. **Lembar Pengesahan Tiga Pihak (Triple Sign-off):**
-   - Kolom tanda tangan formal: **Yang Mengajukan (Koordinator/PIC)**, **Diverifikasi (Bendahara/Pemeriksa)**, dan **Disetujui (Pimpinan/Pemberi Dana)**.
+> **Sistem Pembuatan Dokumen Invoice & Rekapitulasi Honorarium Panitia Mahasiswa Berbasis Jam Kerja.**  
+> Dirancang khusus untuk event **MDL Esports Indonesia** bersama **Universitas Kristen Krida Wacana (UKRIDA)**.  
+> Standar A4 Print-Ready, Portabel Tanpa Backend, Dilengkapi Fitur Auto-Save LocalStorage, Quick-Apply Tarif/Jam, & Export/Import JSON.
 
 ---
 
-## 🚀 Cara Menjalankan
+## 🌟 Fitur & Ketentuan Operasional
 
-Aplikasi ini berbasis client-side murni (HTML5, Vanilla CSS3, & Modern JS). Tidak memerlukan instalasi server atau dependensi tambahan.
+1. **Perhitungan Berbasis Jam Kerja Akumulatif (Hourly Rate):**
+   - **Shift Kerja:** Call crew pukul **10:00 WIB** s.d. Selesai shift pukul **23:00 WIB** (**13 Jam / Hari**).
+   - **Periode Kerja:** Rekapitulasi kumulatif **Senin s.d. Senin** (8 hari operasional).
+   - **Tanpa Pembagian Harian:** Dokumen langsung menyajikan total akumulasi jam kerja dan gaji kumulatif seluruh panitia selama periode acara sesuai permintaan Pak Hudi.
+   - **Tanpa Rembesan Operasional:** Fokus penuh pada tagihan honorarium tenaga kerja mahasiswa.
 
-### 1. Jalankan Secara Lokal
-Cukup buka file `index.html` dengan browser apa pun (Google Chrome, Firefox, Microsoft Edge, Safari):
+2. **Daftar Pasukan Mahasiswa UKRIDA (16 Orang Terdata):**
+   - **Runner Logistic (5 Orang - 8 Hari / 104 Jam):** Steven Felizio, Nathanael, Nelson Kusuma, Bryan Gandarasa, Siddharta Pratama Budiono (Ketua UKM Esports).
+   - **Floor Officer (6 Orang - 8 Hari / 104 Jam):** Robert Paulus Junior Sihite, Andreas Fransisco, Juan Louis, Jericco Wijaya, Varlent Alberta Gunawan, Justin Ansell Wibisono.
+   - **Manpower Registration (2 Orang - 8 Hari / 104 Jam):** Chelsea Claudia, Shania Ferliany Wi.
+   - **Broadcast Officer (1 Orang - 8 Hari / 104 Jam):** Kristofer Ryan Giggs Eka Saputra.
+   - **Usher Awarding (2 Orang - Khusus Day 1 & Day 4 / 26 Jam):** Cristabel Grasilia Angelica, Gaby.
 
+3. **Fitur Interaktif & Efisiensi:**
+   - **⚡ Quick-Apply Tarif/Jam:** Masukkan tarif per jam (misal: Rp 25.000/jam) dan klik satu tombol untuk menerapkan ke seluruh panitia secara instan.
+   - **Kalkulasi Jam Otomatis:** Perubahan hari kerja atau jam per hari langsung menghitung total jam dan subtotal honor.
+   - **Uang Muka / Kasbon (DP):** Opsi pemotongan uang muka jika ada dana talangan awal.
+   - **Terbilang Rupiah Otomatis:** Mengonversi total tagihan menjadi teks kalimat resmi Bahasa Indonesia.
+
+4. **Lembar Pengesahan Empat Pihak (4-Way Sign-Off):**
+   - **Diajukan Oleh:** Arthur Reezan (Koordinator Pasukan Mahasiswa UKRIDA)
+   - **Diverifikasi Oleh:** Sylvia Stevanie (Bendahara Pelaksana)
+   - **Disetujui Oleh:** Daniel Hutapea (Kepala Unit Kemahasiswaan UKRIDA)
+   - **Diterima & Disahkan Oleh:** Pak Hudi (PIC Acara & Tim Penyelenggara MDL)
+
+5. **Portabilitas & Cetak PDF A4:**
+   - **Export / Import JSON:** Simpan konfigurasi ke berkas `.json` lokal dan pulihkan kapan saja.
+   - **Auto-Save LocalStorage:** Perubahan tersimpan otomatis di browser tanpa khawatir data hilang saat reload.
+   - **Print-to-PDF Presisi:** Desain responsif dengan `@media print` yang menghilangkan tombol kontrol dan menghasilkan dokumen cetak A4 yang rapi dan elegan.
+
+---
+
+## 🚀 Cara Menggunakan
+
+Aplikasi ini berbasis client-side murni (Zero Dependency).
+
+### 1. Buka Langsung di Web (GitHub Pages)
+Dokumen live dapat diakses langsung melalui:  
+👉 **[https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/](https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/)**
+
+### 2. Jalankan Secara Lokal
 ```bash
-# Di Linux
-xdg-open index.html
+# Clone repositori
+git clone https://github.com/arthurfreelanceinquiries-alt/invoice-mahasiswa.git
+cd invoice-mahasiswa
 
-# Di macOS
-open index.html
-
-# Di Windows (Command Prompt / PowerShell)
-start index.html
+# Buka di browser
+xdg-open index.html   # Linux
+open index.html       # macOS
+start index.html      # Windows
 ```
 
-### 2. Cetak ke PDF
-1. Tekan tombol **🖨️ Cetak / Simpan PDF (A4)** di pojok kanan atas, atau gunakan pintasan keyboard `Ctrl + P` (Windows/Linux) / `Cmd + P` (macOS).
-2. Pada dialog print browser:
-   - **Destination:** Save as PDF
-   - **Paper Size:** A4
-   - **Margins:** Default / None
-   - **Options:** Centang *"Background graphics"* agar garis dan warna tabel tercetak sempurna.
-3. Klik **Save**.
-
----
-
-## 📦 Struktur Berkas
-
-```text
-invoice-mahasiswa/
-├── index.html       # Aplikasi utama, kalkulator invoice, dan styling PDF A4
-├── README.md        # Panduan penggunaan & dokumentasi teknis
-├── LICENSE          # Lisensi open-source (MIT)
-└── .gitignore       # Konfigurasi pengabaian file sementara
-```
+### 3. Ekspor ke PDF
+1. Klik tombol **🖨️ Cetak / PDF (A4)** di pojok kanan atas atau gunakan shortcut `Ctrl + P`.
+2. Pilih printer **Save as PDF** dengan kertas ukuran **A4**.
+3. Pastikan opsi **Background graphics** dicentang agar estetika tabel dan badge tercetak sempurna.
+4. Klik **Save**.
 
 ---
 
 ## 📄 Lisensi
 
-Proyek ini dirilis di bawah lisensi [MIT License](LICENSE). Bebas digunakan, dimodifikasi, dan didistribusikan untuk kepanitiaan mahasiswa, organisasi kampus, maupun proyek komersial.
+Proyek ini dirilis di bawah lisensi [MIT License](LICENSE).

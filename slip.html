@@ -606,6 +606,52 @@
       line-height: 1.4;
     }
 
+    .wa-bridge-box {
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: all 0.2s ease;
+    }
+    .wa-bridge-box.active {
+      background: #dcfce7;
+      border: 2px solid #22c55e;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+    }
+    .wa-bridge-box.inactive {
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+    }
+    .wa-bridge-badge {
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .wa-bridge-box.active .wa-bridge-badge {
+      color: #14532d;
+    }
+    .wa-bridge-box.inactive .wa-bridge-badge {
+      color: #92400e;
+    }
+    .wa-bridge-desc {
+      font-size: 11px;
+      line-height: 1.45;
+    }
+    .wa-bridge-box.active .wa-bridge-desc {
+      color: #166534;
+    }
+    .wa-bridge-box.inactive .wa-bridge-desc {
+      color: #92400e;
+    }
+    .wa-bridge-desc a {
+      color: #1d4ed8;
+      font-weight: 700;
+    }
+
     .wa-control-strip {
       background: #ffffff;
       padding: 12px 16px;
@@ -1056,15 +1102,28 @@
     </div>
 
     <div class="wa-modal-body">
+      <!-- BRIDGE STATUS: Ekstensi Chrome / Userscript v3.0 -->
+      <div id="waBridgeStatusBox" class="wa-bridge-box inactive">
+        <div class="wa-bridge-badge">🟡 Mode 1-Tab Belum Aktif — memakai fallback window.open</div>
+        <div class="wa-bridge-desc">
+          Pasang <b>Ekstensi Chrome</b> dari folder <code>extension/</code> atau <b>Userscript v3.0</b>
+          untuk menjamin hanya SATU tab WhatsApp Web yang dipakai ulang.
+        </div>
+      </div>
+
       <!-- NOTICE: AUTO-SEND BOT / USERSCRIPT -->
-      <div class="wa-notice-box">
+      <div class="wa-notice-box" id="waInstallGuideBox">
         <div style="flex: 1; min-width: 320px;">
           <div class="wa-notice-title">
-            <span>⚡ Fitur Baru: Pengiriman 1 Tab WA yang Sama & Tab Tidak Ditutup (Hands-Free):</span>
+            <span>⚡ Zero Tab Bloat: 1 Tab WhatsApp Web Dipakai Ulang & Tab Tidak Ditutup:</span>
           </div>
           <div class="wa-notice-desc">
-            <b>Jalur A (Tanpa Install Apapun):</b> WhatsApp Web akan memakai 1 tab yang sama (tidak membuka 16 tab baru). Kamu cukup tekan tombol <b>Enter</b> di keyboard tiap giliran mahasiswa. Tab tetap terbuka!<br>
-            <b>Jalur B (100% Otomatis):</b> Pasang ekstensi <b>Tampermonkey</b> lalu klik tombol di samping. Skrip akan otomatis mengklik <i>Send</i> di tab yang sama tanpa perlu tekan tombol apa pun dan tab tetap terbuka!
+            <b>Jalur Utama (Ekstensi Chrome):</b> Buka <code>chrome://extensions</code> → aktifkan
+            <b>Developer mode</b> → <b>Load unpacked</b> → pilih folder <code>extension/</code>.
+            Setelah aktif, badge hijau <b>🟢 Mode 1-Tab Otomatis Aktif</b> muncul di atas.<br>
+            <b>Jalur Alternatif (Tampermonkey v3.0):</b> Pasang Tampermonkey, lalu install/update
+            script v3.0 di samping. Script memakai <code>GM_setValue</code> lintas-tab agar tidak
+            membuka tab WhatsApp baru.
           </div>
         </div>
         <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
@@ -1072,7 +1131,7 @@
             🧩 1. Pasang Tampermonkey Chrome
           </a>
           <a href="https://raw.githubusercontent.com/arthurfreelanceinquiries-alt/invoice-mahasiswa/main/whatsapp-autosend.user.js" target="_blank" class="btn btn-wa-sm" style="text-decoration: none; font-weight: 700; background: #16a34a; color: white;">
-            📥 2. Pasang / Update Script Auto-Send (v2.0)
+            📥 2. Pasang / Update Userscript (v3.0)
           </a>
         </div>
       </div>
@@ -1258,6 +1317,13 @@
     }
 
     renderStudent(currentStudentId);
+    updateWABridgeUI();
+
+    // Deteksi jembatan yang telat ter-inject (ekstensi document_end / userscript document_start).
+    setInterval(() => {
+      const modal = document.getElementById('waModal');
+      if (modal && modal.classList.contains('active')) updateWABridgeUI();
+    }, 1500);
 
     if (urlParams.get('action') === 'wa') {
       openWhatsAppModal();
@@ -1820,6 +1886,168 @@
   let autoDispatchQueue = [];
   let autoDispatchCurrentIdx = -1;
   let isDispatchPaused = false;
+  let bridgeWatchdogTimer = null;
+  let awaitingBridgeConfirmation = false;
+
+  // ==========================================
+  // 1-TAB BRIDGE (EKSTENSI CHROME / USERSCRIPT v3.0)
+  // ==========================================
+  function isWABridgeActive() {
+    const root = document.documentElement;
+    if (!root) return false;
+    return root.hasAttribute('data-mdl-extension-active') ||
+      root.hasAttribute('data-mdl-userscript-active');
+  }
+
+  function getWABridgeKind() {
+    const root = document.documentElement;
+    if (!root) return 'none';
+    if (root.hasAttribute('data-mdl-extension-active')) return 'extension';
+    if (root.hasAttribute('data-mdl-userscript-active')) return 'userscript';
+    return 'none';
+  }
+
+  function updateWABridgeUI() {
+    const box = document.getElementById('waBridgeStatusBox');
+    if (!box) return;
+    const guide = document.getElementById('waInstallGuideBox');
+
+    if (isWABridgeActive()) {
+      const kind = getWABridgeKind();
+      const label = kind === 'extension'
+        ? 'Ekstensi Chrome (Arthur MDL WhatsApp Dispatcher)'
+        : 'Userscript Tampermonkey v3.0';
+      box.className = 'wa-bridge-box active';
+      box.innerHTML =
+        `<div class="wa-bridge-badge">🟢 Mode 1-Tab Otomatis Aktif (Zero Tab Bloat)</div>` +
+        `<div class="wa-bridge-desc">Jembatan <b>${label}</b> terdeteksi. Pengiriman dialihkan ke dispatcher 1-tab: ` +
+        `tab WhatsApp Web yang sama dipakai ulang untuk setiap mahasiswa, tanpa membuka tab baru.</div>`;
+      if (guide) guide.style.display = 'none';
+    } else {
+      box.className = 'wa-bridge-box inactive';
+      box.innerHTML =
+        `<div class="wa-bridge-badge">🟡 Mode 1-Tab Belum Aktif — memakai fallback window.open</div>` +
+        `<div class="wa-bridge-desc">Pasang <b>Ekstensi Chrome</b> dari folder <code>extension/</code> ` +
+        `(Load unpacked) atau <b>Userscript v3.0</b> di panduan bawah agar hanya SATU tab WhatsApp Web yang dipakai ulang.</div>`;
+      if (guide) guide.style.display = '';
+    }
+  }
+
+  function updateSentCounter() {
+    let sentCount = 0;
+    Object.values(waContacts).forEach(c => { if (c && c.sent) sentCount++; });
+    const el = document.getElementById('waSentCount');
+    if (el) el.innerText = `${sentCount} Terkirim`;
+  }
+
+  function dispatchViaBridge(student, phone, msg, url) {
+    if (!waContacts[student.id]) waContacts[student.id] = {};
+    window.postMessage({
+      type: 'MDL_DISPATCH_STUDENT',
+      studentId: student.id,
+      phone: phone,
+      text: msg,
+      msg: msg,
+      url: url
+    }, '*');
+  }
+
+  function handleStudentSentSignal(studentId) {
+    const id = parseInt(studentId, 10);
+    if (!id) return;
+
+    if (!waContacts[id]) waContacts[id] = {};
+    const now = new Date();
+    const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    waContacts[id].sent = true;
+    waContacts[id].sentAt = timeStr;
+    saveWAContacts();
+
+    const statusCell = document.getElementById(`waStatusCell_${id}`);
+    if (statusCell) {
+      statusCell.innerHTML = `<span class="wa-status-badge sent">✅ Terkirim (${timeStr})</span>`;
+    }
+    updateSentCounter();
+
+    const student = studentsList.find(s => s.id === id);
+    const studentName = student ? student.name : `Mahasiswa #${id}`;
+    const isCurrentQueueItem = autoDispatchQueue.length > 0 &&
+      autoDispatchCurrentIdx >= 0 &&
+      autoDispatchQueue[autoDispatchCurrentIdx] === id;
+
+    if (isCurrentQueueItem) {
+      clearTimeout(bridgeWatchdogTimer);
+      awaitingBridgeConfirmation = false;
+      document.getElementById('dispatchStatusText').innerText =
+        `✅ [${autoDispatchCurrentIdx + 1}/${autoDispatchQueue.length}] ${studentName} terkirim via 1-Tab Dispatcher.`;
+      scheduleNextDispatchAfterBridge();
+    }
+  }
+
+  function scheduleNextDispatchAfterBridge() {
+    clearTimeout(bridgeWatchdogTimer);
+    clearInterval(autoDispatchTimer);
+
+    const delayVal = document.getElementById('waDelaySelect').value;
+    if (delayVal === 'manual') {
+      document.getElementById('dispatchSubInfo').innerText =
+        '✅ Pesan terkirim. Klik "Buka Tab Ini Sekarang ➔" untuk melanjutkan ke mahasiswa berikutnya.';
+      return;
+    }
+
+    let secondsLeft = parseInt(delayVal) || 5;
+    document.getElementById('dispatchSubInfo').innerText =
+      `Mahasiswa berikutnya dalam ${secondsLeft} detik (1 tab WhatsApp dipakai ulang)...`;
+
+    autoDispatchTimer = setInterval(() => {
+      if (isDispatchPaused) return;
+      secondsLeft--;
+      if (secondsLeft > 0) {
+        document.getElementById('dispatchSubInfo').innerText =
+          `Mahasiswa berikutnya dalam ${secondsLeft} detik (1 tab WhatsApp dipakai ulang)...`;
+      } else {
+        clearInterval(autoDispatchTimer);
+        runNextDispatchQueue();
+      }
+    }, 1000);
+  }
+
+  function armBridgeWatchdog(studentId) {
+    clearTimeout(bridgeWatchdogTimer);
+    bridgeWatchdogTimer = setTimeout(() => {
+      const stillCurrent = autoDispatchQueue.length > 0 &&
+        autoDispatchCurrentIdx >= 0 &&
+        autoDispatchQueue[autoDispatchCurrentIdx] === studentId;
+      if (!stillCurrent) return;
+      awaitingBridgeConfirmation = false;
+      const sub = document.getElementById('dispatchSubInfo');
+      if (sub) sub.innerText = '⚠️ Konfirmasi kirim belum diterima (timeout). Melanjutkan antrean...';
+      scheduleNextDispatchAfterBridge();
+    }, 45000);
+  }
+
+  // Terima sinyal dari ekstensi / userscript.
+  window.addEventListener('message', (event) => {
+    if (event.source && event.source !== window) return;
+    const data = event.data;
+    if (!data || typeof data !== 'object') return;
+
+    if (data.type === 'MDL_EXTENSION_READY' || data.type === 'MDL_USERSCRIPT_READY') {
+      updateWABridgeUI();
+      return;
+    }
+
+    if (data.type === 'MDL_STUDENT_SENT') {
+      handleStudentSentSignal(data.studentId);
+      return;
+    }
+
+    if (data.type === 'MDL_BRIDGE_ERROR') {
+      console.warn('[MDL Dispatcher] Bridge error:', data.error);
+      const sub = document.getElementById('dispatchSubInfo');
+      if (sub) sub.innerText = `⚠️ Bridge error: ${data.error}`;
+    }
+  });
 
   function loadWAContacts() {
     try {
@@ -1941,6 +2169,7 @@
   function openWhatsAppModal() {
     renderWATable();
     updateTemplatePreview(currentStudentId);
+    updateWABridgeUI();
     document.getElementById('waModal').classList.add('active');
   }
 
@@ -2124,6 +2353,24 @@
     const msg = generateWhatsAppMessage(student.id);
     const url = buildWAUrl(phone, msg);
 
+    // JALUR 1-TAB: kirim lewat jembatan ekstensi / userscript, jangan window.open.
+    if (isWABridgeActive()) {
+      saveWAContacts();
+      const bridgeStatusCell = document.getElementById(`waStatusCell_${student.id}`);
+      if (bridgeStatusCell) {
+        bridgeStatusCell.innerHTML = `<span class="wa-status-badge sending">⚡ Mengirim via 1-Tab Dispatcher...</span>`;
+      }
+      dispatchViaBridge(student, phone, msg, url);
+
+      const banner = document.getElementById('autoDispatchBanner');
+      const statusText = document.getElementById('dispatchStatusText');
+      if (banner && banner.classList.contains('active') && statusText) {
+        statusText.innerText = `⚡ Mengirim ${student.name} via 1-Tab Dispatcher...`;
+      }
+      return;
+    }
+
+    // FALLBACK LEGACY (tanpa ekstensi / userscript): window.open seperti sebelumnya.
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     waContacts[student.id].sent = true;
@@ -2135,9 +2382,7 @@
       statusCell.innerHTML = `<span class="wa-status-badge sent">✅ Terkirim (${timeStr})</span>`;
     }
 
-    let sentCount = 0;
-    Object.values(waContacts).forEach(c => { if (c.sent) sentCount++; });
-    document.getElementById('waSentCount').innerText = `${sentCount} Terkirim`;
+    updateSentCounter();
 
     window.open(url, getTargetTabName());
   }
@@ -2180,6 +2425,9 @@
 
     autoDispatchCurrentIdx = -1;
     isDispatchPaused = false;
+    awaitingBridgeConfirmation = false;
+    clearTimeout(bridgeWatchdogTimer);
+    clearInterval(autoDispatchTimer);
 
     document.getElementById('autoDispatchBanner').classList.add('active');
     document.getElementById('btnDispatchPause').innerText = 'Jeda';
@@ -2194,9 +2442,11 @@
     const total = autoDispatchQueue.length;
 
     if (autoDispatchCurrentIdx >= total) {
-      document.getElementById('dispatchStatusText').innerText = `🎉 Selesai! Semua ${total} tab WhatsApp Web telah berhasil dibuka.`;
+      document.getElementById('dispatchStatusText').innerText = `🎉 Selesai! Semua ${total} mahasiswa telah diproses.`;
       document.getElementById('dispatchProgressBar').style.width = '100%';
-      document.getElementById('dispatchSubInfo').innerText = `Silakan kirim pesan di masing-masing tab WhatsApp Web yang telah dibuka.`;
+      document.getElementById('dispatchSubInfo').innerText = isWABridgeActive()
+        ? 'Semua pesan dikirim otomatis melalui SATU tab WhatsApp Web yang sama (Zero Tab Bloat).'
+        : `Silakan kirim pesan di masing-masing tab WhatsApp Web yang telah dibuka.`;
       setTimeout(() => {
         document.getElementById('autoDispatchBanner').classList.remove('active');
       }, 5000);
@@ -2221,16 +2471,34 @@
       return;
     }
 
-    document.getElementById('dispatchStatusText').innerText = `⚡ [${autoDispatchCurrentIdx + 1}/${total}] Membuka tab WhatsApp untuk ${student.name}...`;
+    if (!waContacts[studentId]) waContacts[studentId] = {};
 
+    const msg = generateWhatsAppMessage(student.id);
+    const url = buildWAUrl(phone, msg);
     const statusCell = document.getElementById(`waStatusCell_${student.id}`);
+
+    // JALUR 1-TAB: kirim lewat jembatan, tunggu MDL_STUDENT_SENT sebelum lanjut.
+    if (isWABridgeActive()) {
+      document.getElementById('dispatchStatusText').innerText =
+        `⚡ [${autoDispatchCurrentIdx + 1}/${total}] Mengirim ${student.name} via 1-Tab Dispatcher...`;
+      document.getElementById('dispatchSubInfo').innerText =
+        'Tab WhatsApp Web yang sama dipakai ulang (Zero Tab Bloat). Menunggu konfirmasi kirim...';
+      if (statusCell) {
+        statusCell.innerHTML = `<span class="wa-status-badge sending">⚡ Mengirim via 1-Tab...</span>`;
+      }
+
+      dispatchViaBridge(student, phone, msg, url);
+      awaitingBridgeConfirmation = true;
+      armBridgeWatchdog(student.id);
+      return;
+    }
+
+    // FALLBACK LEGACY (tanpa ekstensi / userscript).
+    document.getElementById('dispatchStatusText').innerText = `⚡ [${autoDispatchCurrentIdx + 1}/${total}] Membuka tab WhatsApp untuk ${student.name}...`;
     if (statusCell) {
       statusCell.innerHTML = `<span class="wa-status-badge sending">⏳ Membuka...</span>`;
     }
 
-    // Open WhatsApp Web
-    const msg = generateWhatsAppMessage(student.id);
-    const url = buildWAUrl(phone, msg);
     window.open(url, getTargetTabName());
 
     const now = new Date();
@@ -2243,9 +2511,7 @@
       statusCell.innerHTML = `<span class="wa-status-badge sent">✅ Terkirim (${timeStr})</span>`;
     }
 
-    let sentCount = 0;
-    Object.values(waContacts).forEach(c => { if (c.sent) sentCount++; });
-    document.getElementById('waSentCount').innerText = `${sentCount} Terkirim`;
+    updateSentCounter();
 
     // Handle Delay to next student
     const delayVal = document.getElementById('waDelaySelect').value;
@@ -2272,6 +2538,8 @@
 
   function forceNextDispatch() {
     clearInterval(autoDispatchTimer);
+    clearTimeout(bridgeWatchdogTimer);
+    awaitingBridgeConfirmation = false;
     runNextDispatchQueue();
   }
 
@@ -2283,12 +2551,19 @@
       document.getElementById('dispatchSubInfo').innerText = '⏸️ Pengiriman otomatis dijeda. Klik "Lanjut" untuk meneruskan.';
     } else {
       btn.innerText = 'Jeda';
+      if (awaitingBridgeConfirmation) {
+        document.getElementById('dispatchSubInfo').innerText =
+          '▶️ Dilanjutkan. Menunggu konfirmasi kirim dari WhatsApp Web...';
+        return;
+      }
       runNextDispatchQueue();
     }
   }
 
   function stopAutoDispatch() {
     clearInterval(autoDispatchTimer);
+    clearTimeout(bridgeWatchdogTimer);
+    awaitingBridgeConfirmation = false;
     autoDispatchQueue = [];
     autoDispatchCurrentIdx = -1;
     isDispatchPaused = false;

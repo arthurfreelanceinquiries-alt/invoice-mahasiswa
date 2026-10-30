@@ -81,6 +81,70 @@ Proyek ini menyediakan 2 halaman dokumen yang terintegrasi langsung:
 
 ---
 
+## 🚀 Zero Tab Bloat: WhatsApp 1-Tab Dispatcher
+
+Fitur **💬 Dispatcher WhatsApp** di `slip.html` bisa mengirim slip ke 16 mahasiswa tanpa
+membuka 16 tab WhatsApp Web. Ada dua jalur yang sama-sama menjamin **satu tab dipakai ulang**.
+
+### Kenapa `window.open` tidak cukup?
+
+`web.whatsapp.com` menerapkan **Cross-Origin Opener Policy (COOP)** dan isolasi browsing context.
+Saat tab WhatsApp Web dibuka dari GitHub Pages, browser memutus hubungan `window.opener`
+antar-origin. Akibatnya `window.open(url, 'Arthur_MDL_WhatsApp_Web')` berikutnya **tidak bisa
+menemukan tab lama** dan selalu membuat tab baru — 16 mahasiswa = 16 tab, RAM membengkak.
+
+Solusinya memakai API browser yang tidak terpengaruh COOP:
+
+| Jalur | Mekanisme | Hasil |
+| --- | --- | --- |
+| **Ekstensi Chrome (utama)** | `chrome.tabs.query` + `chrome.tabs.update` | 100% satu tab WhatsApp Web dipakai ulang |
+| **Userscript v3.0 (alternatif)** | `GM_setValue` + `GM_addValueChangeListener` lintas-tab | Satu tab WhatsApp Web dinavigasi ulang, tanpa tab baru |
+| **Fallback tanpa install** | `window.open(url, getTargetTabName())` | Perilaku lama (bisa multi-tab) |
+
+### A. Pasang Ekstensi Chrome (disarankan)
+
+1. Unduh / clone repositori ini.
+2. Buka `chrome://extensions` di Chrome, Edge, atau Brave.
+3. Aktifkan **Developer mode** (toggle kanan atas).
+4. Klik **Load unpacked**, lalu pilih folder **`extension/`** (folder yang berisi `manifest.json`).
+5. Pastikan ekstensi **Arthur MDL WhatsApp Dispatcher v3.0.0** berstatus **On**.
+6. Buka / refresh
+   **[slip.html](https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/slip.html)**,
+   lalu buka modal **💬 Dispatcher WhatsApp**.
+7. Badge di modal harus berubah menjadi
+   **🟢 Mode 1-Tab Otomatis Aktif (Zero Tab Bloat)**.
+
+Ekstensi hanya meminta izin `tabs` + `storage` dan hanya berjalan di `slip.html`,
+`web.whatsapp.com`, `api.whatsapp.com`, serta `localhost`. Tidak ada data yang dikirim ke server
+pihak ketiga.
+
+### B. Pasang Userscript Tampermonkey v3.0
+
+1. Pasang ekstensi browser
+   **[Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)**.
+2. Buka dashboard Tampermonkey → **Create a new script**.
+3. Ganti seluruh isi dengan file
+   **[`whatsapp-autosend.user.js`](https://raw.githubusercontent.com/arthurfreelanceinquiries-alt/invoice-mahasiswa/main/whatsapp-autosend.user.js)**
+   (versi **3.0**), lalu **Save**.
+4. Refresh `slip.html`. Modal WhatsApp akan menampilkan badge
+   **🟢 Mode 1-Tab Otomatis Aktif (Zero Tab Bloat)** dengan label *Userscript Tampermonkey v3.0*.
+5. Login WhatsApp Web sekali (scan QR). Setelah itu setiap klik **📲 Buka WA** atau
+   **⚡ Kirim Semua Terpilih** akan memakai tab WhatsApp Web yang sama.
+
+> **Catatan:** jika ekstensi dan userscript aktif bersamaan, dispatcher ekstensi yang menangani
+> pengiriman dan userscript otomatis *stand-down* untuk mencegah pesan ganda. Tetap disarankan
+> memilih salah satu jalur saja.
+
+### C. Cara Verifikasi
+
+- Buka modal WhatsApp → badge hijau **🟢 Mode 1-Tab Otomatis Aktif** muncul.
+- Kirim ke beberapa mahasiswa → jumlah tab WhatsApp Web tetap **1**.
+- Setelah pesan terkirim, status baris berubah menjadi **✅ Terkirim (HH:MM)** dan counter
+  **Terkirim** bertambah otomatis (sinyal `MDL_STUDENT_SENT`).
+- Tab WhatsApp Web **tidak pernah ditutup**, sehingga antrean berikutnya langsung memakainya.
+
+---
+
 ## 📄 Lisensi
 
 Proyek ini dirilis di bawah lisensi [MIT License](LICENSE).

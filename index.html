@@ -958,13 +958,13 @@
         });
       });
 
-      localStorage.setItem('arthur_invoice_data_hourly_mdl_v3', JSON.stringify(data));
+      localStorage.setItem('arthur_invoice_data_hourly_mdl_v4', JSON.stringify(data));
     } catch(e) {}
   }
 
   function exportJSON() {
     saveToStorage();
-    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v3');
+    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v4');
     if (!data) return;
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -1031,13 +1031,13 @@
       { name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", days: 8, hoursPerDay: 13, rate: 0 },
       { name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Ketua UKM Esports)", days: 8, hoursPerDay: 13, rate: 0 },
       
-      // Floor : 6 (8 Hari x 13 Jam = 104 Jam)
-      { name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer", days: 8, hoursPerDay: 13, rate: 0 },
-      { name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer", days: 8, hoursPerDay: 13, rate: 0 },
-      { name: "Juan Louis", nim: "322025002", role: "Floor Officer", days: 8, hoursPerDay: 13, rate: 0 },
-      { name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer", days: 8, hoursPerDay: 13, rate: 0 },
-      { name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer", days: 8, hoursPerDay: 13, rate: 0 },
-      { name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer", days: 8, hoursPerDay: 13, rate: 0 },
+      // Floor : 6 (Mulai Rabu - 5 Hari Kerja x 13 Jam = 65 Jam)
+      { name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 13, rate: 0 },
+      { name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 13, rate: 0 },
+      { name: "Juan Louis", nim: "322025002", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 13, rate: 0 },
+      { name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 13, rate: 0 },
+      { name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 13, rate: 0 },
+      { name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 13, rate: 0 },
 
       // Manpower Registration : 2 (8 Hari x 13 Jam = 104 Jam)
       { name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", days: 8, hoursPerDay: 13, rate: 0 },
@@ -1061,12 +1061,12 @@
       document.getElementById('downPaymentInput').value = 0;
       addWorkerRow();
       calculateAll();
-      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v3');
+      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v4');
     }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v3');
+    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v4');
     if (saved) {
       try {
         const data = JSON.parse(saved);

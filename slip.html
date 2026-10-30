@@ -722,13 +722,13 @@
     { id: 4, name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", daysCount: 8, isUsher: false },
     { id: 5, name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Ketua UKM Esports)", daysCount: 8, isUsher: false },
     
-    // Floor : 6 (8 Hari)
-    { id: 6, name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer", daysCount: 8, isUsher: false },
-    { id: 7, name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer", daysCount: 8, isUsher: false },
-    { id: 8, name: "Juan Louis", nim: "322025002", role: "Floor Officer", daysCount: 8, isUsher: false },
-    { id: 9, name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer", daysCount: 8, isUsher: false },
-    { id: 10, name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer", daysCount: 8, isUsher: false },
-    { id: 11, name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer", daysCount: 8, isUsher: false },
+    // Floor : 6 (Mulai Rabu - 5 Hari Kerja)
+    { id: 6, name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
+    { id: 7, name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
+    { id: 8, name: "Juan Louis", nim: "322025002", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
+    { id: 9, name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
+    { id: 10, name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
+    { id: 11, name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
 
     // Manpower Registration : 2 (8 Hari)
     { id: 12, name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", daysCount: 8, isUsher: false },
@@ -798,6 +798,8 @@
     
     if (student.isUsher) {
       document.getElementById('dispShiftStatus').innerText = "Khusus Day 1 & Day 4 (2 Hari Kerja)";
+    } else if (student.isFloor) {
+      document.getElementById('dispShiftStatus').innerText = "Mulai Rabu s.d. Minggu (5 Hari Kerja Penuh)";
     } else {
       document.getElementById('dispShiftStatus').innerText = "Aktif Penuh (8 Hari Operasional)";
     }
@@ -872,6 +874,28 @@
             hoursWorked: 0,
             lateHours: 0,
             notes: 'Bukan jadwal tugas usher'
+          };
+        }
+      } else if (student.isFloor) {
+        if (d.dayIndex >= 3 && d.dayIndex <= 7) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'hadir',
+            shiftTime: '10:00 - 23:00',
+            hoursWorked: 11,
+            lateHours: 0,
+            notes: 'Hadir tepat waktu shift penuh (Mulai Rabu)'
+          };
+        } else {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'off',
+            shiftTime: '-',
+            hoursWorked: 0,
+            lateHours: 0,
+            notes: d.dayIndex < 3 ? 'Belum jadwal bertugas (Mulai Rabu)' : 'Off / Selesai shift 5 hari'
           };
         }
       } else {
@@ -1037,7 +1061,7 @@
     });
 
     try {
-      localStorage.setItem('arthur_mdl_timesheets_data_v2', JSON.stringify(allTimesheets));
+      localStorage.setItem('arthur_mdl_timesheets_data_v3', JSON.stringify(allTimesheets));
     } catch(e) {}
   }
 
@@ -1052,7 +1076,7 @@
 
   function loadSavedData() {
     try {
-      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v2');
+      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v3');
       if (saved) {
         allTimesheets = JSON.parse(saved);
       }

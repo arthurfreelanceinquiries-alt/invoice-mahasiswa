@@ -730,9 +730,9 @@
     { id: 10, name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
     { id: 11, name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer", daysCount: 5, isFloor: true, isUsher: false },
 
-    // Manpower Registration : 2 (8 Hari)
-    { id: 12, name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", daysCount: 8, isUsher: false },
-    { id: 13, name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", daysCount: 8, isUsher: false },
+    // Manpower Registration : 2 (4 Hari)
+    { id: 12, name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", daysCount: 4, isRegistration: true, isUsher: false },
+    { id: 13, name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", daysCount: 4, isRegistration: true, isUsher: false },
 
     // Broadcast Officer : 1 (8 Hari)
     { id: 14, name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer", daysCount: 8, isUsher: false },
@@ -800,6 +800,8 @@
       document.getElementById('dispShiftStatus').innerText = "Khusus Day 1 & Day 4 (2 Hari Kerja)";
     } else if (student.isFloor) {
       document.getElementById('dispShiftStatus').innerText = "Mulai Rabu s.d. Minggu (5 Hari Kerja Penuh)";
+    } else if (student.isRegistration) {
+      document.getElementById('dispShiftStatus').innerText = "Penugasan 4 Hari Kerja Registrasi";
     } else {
       document.getElementById('dispShiftStatus').innerText = "Aktif Penuh (8 Hari Operasional)";
     }
@@ -896,6 +898,28 @@
             hoursWorked: 0,
             lateHours: 0,
             notes: d.dayIndex < 3 ? 'Belum jadwal bertugas (Mulai Rabu)' : 'Off / Selesai shift 5 hari'
+          };
+        }
+      } else if (student.isRegistration) {
+        if (d.dayIndex <= 4) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'hadir',
+            shiftTime: '10:00 - 23:00',
+            hoursWorked: 11,
+            lateHours: 0,
+            notes: 'Hadir penuh penugasan registrasi'
+          };
+        } else {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'off',
+            shiftTime: '-',
+            hoursWorked: 0,
+            lateHours: 0,
+            notes: 'Selesai masa penugasan registrasi (4 Hari)'
           };
         }
       } else {
@@ -1061,7 +1085,7 @@
     });
 
     try {
-      localStorage.setItem('arthur_mdl_timesheets_data_v3', JSON.stringify(allTimesheets));
+      localStorage.setItem('arthur_mdl_timesheets_data_v4', JSON.stringify(allTimesheets));
     } catch(e) {}
   }
 
@@ -1076,7 +1100,7 @@
 
   function loadSavedData() {
     try {
-      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v3');
+      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v4');
       if (saved) {
         allTimesheets = JSON.parse(saved);
       }

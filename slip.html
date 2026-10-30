@@ -1060,11 +1060,11 @@
       <div class="wa-notice-box">
         <div style="flex: 1; min-width: 320px;">
           <div class="wa-notice-title">
-            <span>⚡ Cara Mengirim Tanpa Ribet (Pilih Jalur Termudah):</span>
+            <span>⚡ Fitur Baru: Pengiriman 1 Tab WA yang Sama & Tab Tidak Ditutup (Hands-Free):</span>
           </div>
           <div class="wa-notice-desc">
-            <b>Jalur A (Tanpa Install Apapun — Cepat):</b> Saat tab WhatsApp terbuka otomatis, kamu cukup tekan tombol <b>Enter</b> di keyboard (pesan langsung terkirim), lalu tekan <b>Ctrl + W</b> untuk tutup tab. Hanya 1 detik per orang!<br>
-            <b>Jalur B (100% Hands-Free):</b> Pasang ekstensi <b>Tampermonkey</b> dulu, lalu pasang skrip di bawah agar tombol Send ditekan otomatis & tab tertutup sendiri.
+            <b>Jalur A (Tanpa Install Apapun):</b> WhatsApp Web akan memakai 1 tab yang sama (tidak membuka 16 tab baru). Kamu cukup tekan tombol <b>Enter</b> di keyboard tiap giliran mahasiswa. Tab tetap terbuka!<br>
+            <b>Jalur B (100% Otomatis):</b> Pasang ekstensi <b>Tampermonkey</b> lalu klik tombol di samping. Skrip akan otomatis mengklik <i>Send</i> di tab yang sama tanpa perlu tekan tombol apa pun dan tab tetap terbuka!
           </div>
         </div>
         <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
@@ -1072,7 +1072,7 @@
             🧩 1. Pasang Tampermonkey Chrome
           </a>
           <a href="whatsapp-autosend.user.js" target="_blank" class="btn btn-wa-sm" style="text-decoration: none; font-weight: 700; background: #16a34a; color: white;">
-            📥 2. Pasang Script Auto-Send
+            📥 2. Pasang Script Auto-Send (v1.2)
           </a>
         </div>
       </div>
@@ -1086,13 +1086,18 @@
         </div>
 
         <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-          <label style="font-size: 12px; font-weight: 600; color: #475569;">Target Platform:</label>
+          <label style="display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: #166534; cursor: pointer; background: #dcfce7; padding: 4px 8px; border-radius: 5px; border: 1px solid #86efac;">
+            <input type="checkbox" id="waReuseTab" checked>
+            📌 Pakai 1 Tab WA (Gunakan Tab yang Terbuka)
+          </label>
+
+          <label style="font-size: 12px; font-weight: 600; color: #475569; margin-left: 4px;">Target Platform:</label>
           <select id="waTargetMode" style="font-size: 12px; padding: 4px 8px; border-radius: 5px; border: 1px solid var(--border);">
             <option value="web" selected>WhatsApp Web (web.whatsapp.com)</option>
             <option value="universal">WhatsApp Universal (wa.me)</option>
           </select>
 
-          <label style="font-size: 12px; font-weight: 600; color: #475569; margin-left: 6px;">Jeda Otomatis:</label>
+          <label style="font-size: 12px; font-weight: 600; color: #475569; margin-left: 4px;">Jeda Otomatis:</label>
           <select id="waDelaySelect" style="font-size: 12px; padding: 4px 8px; border-radius: 5px; border: 1px solid var(--border);">
             <option value="4">4 Detik</option>
             <option value="6" selected>6 Detik (Rekomendasi)</option>
@@ -2089,6 +2094,11 @@
     }
   }
 
+  function getTargetTabName() {
+    const reuse = document.getElementById('waReuseTab');
+    return (reuse && reuse.checked) ? 'Arthur_MDL_WhatsApp_Web' : '_blank';
+  }
+
   function sendSingleStudentWA(studentId) {
     const student = studentsList.find(s => s.id === studentId);
     if (!student) return;
@@ -2129,7 +2139,7 @@
     Object.values(waContacts).forEach(c => { if (c.sent) sentCount++; });
     document.getElementById('waSentCount').innerText = `${sentCount} Terkirim`;
 
-    window.open(url, '_blank');
+    window.open(url, getTargetTabName());
   }
 
   function copySingleStudentWAMsg(studentId) {
@@ -2221,7 +2231,7 @@
     // Open WhatsApp Web
     const msg = generateWhatsAppMessage(student.id);
     const url = buildWAUrl(phone, msg);
-    window.open(url, '_blank');
+    window.open(url, getTargetTabName());
 
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
@@ -2245,14 +2255,14 @@
     }
 
     let secondsLeft = parseInt(delayVal) || 5;
-    document.getElementById('dispatchSubInfo').innerText = `Membuka tab mahasiswa berikutnya dalam ${secondsLeft} detik...`;
+    document.getElementById('dispatchSubInfo').innerText = `Mengalihkan tab WhatsApp ke mahasiswa berikutnya dalam ${secondsLeft} detik (tab tetap terbuka)...`;
 
     clearInterval(autoDispatchTimer);
     autoDispatchTimer = setInterval(() => {
       if (isDispatchPaused) return;
       secondsLeft--;
       if (secondsLeft > 0) {
-        document.getElementById('dispatchSubInfo').innerText = `Membuka tab mahasiswa berikutnya dalam ${secondsLeft} detik...`;
+        document.getElementById('dispatchSubInfo').innerText = `Mengalihkan tab WhatsApp ke mahasiswa berikutnya dalam ${secondsLeft} detik (tab tetap terbuka)...`;
       } else {
         clearInterval(autoDispatchTimer);
         runNextDispatchQueue();

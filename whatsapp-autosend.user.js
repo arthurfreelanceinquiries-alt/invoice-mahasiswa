@@ -1,36 +1,34 @@
 // ==UserScript==
 // @name         WhatsApp Web Auto-Sender (Arthur MDL Dispatcher)
 // @namespace    https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/
-// @version      1.1
-// @description  Otomatis klik tombol Kirim (Send) dan tutup tab secara mulus saat membuka tautan WhatsApp dari Dispatcher Slip Payroll UKRIDA MDL
+// @version      1.2
+// @description  Otomatis klik tombol Kirim (Send) pada 1 tab WhatsApp Web yang sama tanpa membuka banyak tab baru dan TANPA menutup tab setelah terkirim.
 // @author       Arthur Reezan & Llamrei
 // @match        https://web.whatsapp.com/*
 // @match        https://api.whatsapp.com/*
-// @grant        window.close
 // @run-at       document-idle
 // ==/UserScript==
 
 (function() {
   'use strict';
 
-  // Periksa apakah URL berasal dari pengiriman pesan (mengandung parameter 'text')
-  const searchParams = new URLSearchParams(window.location.search);
-  const hashParams = new URLSearchParams(window.location.hash.substring(1));
-  const hasText = searchParams.has('text') || hashParams.has('text');
+  console.log("⚡ [MDL Auto-Sender v1.2] Aktif di 1 tab WhatsApp Web (Mode: Tetap Buka / No-Close).");
 
-  if (!hasText) {
-    return;
-  }
+  let lastProcessedUrl = '';
+  let isSending = false;
 
-  console.log("⚡ [MDL Auto-Sender] Tautan pesan terdeteksi. Menginisialisasi auto-send...");
+  function checkAndAutoSend() {
+    const currentUrl = window.location.href;
+    const searchParams = new URLSearchParams(window.location.search);
+    const hashParams = new URLSearchParams(window.location.hash.substring(1));
+    const textParam = searchParams.get('text') || hashParams.get('text');
 
-  let attempts = 0;
-  const maxAttempts = 40; // Timeout 40 detik untuk koneksi lambat
+    // Jika tidak ada parameter text atau URL ini sudah pernah dikirimkan, lewati
+    if (!textParam || currentUrl === lastProcessedUrl || isSending) {
+      return;
+    }
 
-  const checkAndSend = setInterval(() => {
-    attempts++;
-
-    // Selektor tombol kirim WhatsApp Web (mendukung bahasa Indonesia & Inggris, serta ikon svg)
+    // Cari tombol kirim WhatsApp Web (bahasa Indonesia, Inggris, atau ikon SVG)
     const sendButton = 
       document.querySelector('button[aria-label="Send"]') ||
       document.querySelector('button[aria-label="Kirim"]') ||
@@ -39,18 +37,18 @@
       document.querySelector('footer button[aria-label*="Send"]') ||
       document.querySelector('footer button[aria-label*="Kirim"]');
 
-    // Cek juga apakah input chat sudah memiliki teks
     const chatInput = document.querySelector('footer div[contenteditable="true"]');
 
     if (sendButton) {
-      clearInterval(checkAndSend);
-      console.log("🎯 [MDL Auto-Sender] Tombol kirim ditemukan! Menembakkan klik...");
+      isSending = true;
+      lastProcessedUrl = currentUrl;
+      console.log("🎯 [MDL Auto-Sender] Draf pesan terdeteksi! Menembakkan tombol Kirim secara otomatis...");
 
-      // Jeda 800ms agar payload teks tersinkron penuh ke state WhatsApp
+      // Jeda 800ms agar seluruh state React WhatsApp sinkron
       setTimeout(() => {
         sendButton.click();
-        
-        // Simulasikan Enter keyup sebagai fallback
+
+        // Fallback pemicu tombol Enter jika dibutuhkan
         if (chatInput) {
           const enterEvent = new KeyboardEvent('keydown', {
             bubbles: true,
@@ -63,25 +61,22 @@
           chatInput.dispatchEvent(enterEvent);
         }
 
-        console.log("✅ [MDL Auto-Sender] Pesan berhasil ditembakkan! Menutup tab...");
+        console.log("✅ [MDL Auto-Sender] Pesan sukses terkirim! Tab tetap dibiarkan terbuka (tidak di-close) sesuai arahan Arthur.");
 
-        // Beri waktu 2.5 detik untuk network ACK WhatsApp sebelum menutup tab
+        // Buka kembali lock setelah 2.5 detik agar siap menerima mahasiswa berikutnya di tab yang sama
         setTimeout(() => {
-          try {
-            window.close();
-          } catch(e) {
-            console.warn("Browser mencegah auto-close, silakan tutup tab manual:", e);
-          }
+          isSending = false;
         }, 2500);
 
       }, 800);
-      return;
     }
+  }
 
-    if (attempts >= maxAttempts) {
-      clearInterval(checkAndSend);
-      console.warn("⚠️ [MDL Auto-Sender] Melebihi batas waktu 40 detik. Silakan klik kirim secara manual jika QR/koneksi baru sinkron.");
-    }
-  }, 1000);
+  // Monitor DOM dan URL secara berkala
+  setInterval(checkAndAutoSend, 800);
+
+  // Monitor navigasi SPA WhatsApp Web
+  window.addEventListener('popstate', checkAndAutoSend);
+  window.addEventListener('hashchange', checkAndAutoSend);
 
 })();

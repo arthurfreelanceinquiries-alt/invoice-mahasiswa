@@ -835,7 +835,7 @@
           <input type="text" class="shift-time text-center" value="${row.shiftTime || '10:00 - 23:00'}" style="width: 95px;" oninput="updateRowCalc(${idx})">
         </td>
         <td class="text-center">
-          <input type="number" class="hours-worked text-center" min="0" max="15" step="0.5" value="${row.hoursWorked}" style="width: 50px; font-weight: 700;" oninput="updateRowCalc(${idx})">
+          <input type="number" class="hours-worked text-center" min="0" max="15" step="0.1" value="${row.hoursWorked}" style="width: 50px; font-weight: 700;" oninput="updateRowCalc(${idx})">
         </td>
         <td class="text-center" style="color: var(--danger); font-weight: 700;">
           <span class="late-hours-text">${row.lateHours > 0 ? '-' + row.lateHours + ' Jam' : '0'}</span>
@@ -920,6 +920,59 @@
             hoursWorked: 0,
             lateHours: 0,
             notes: 'Selesai masa penugasan registrasi (4 Hari)'
+          };
+        }
+      } else if (student.id === 5) {
+        // Siddharta Pratama Budiono (Runner Logistic)
+        if (d.dayIndex === 1) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'izin',
+            shiftTime: '-',
+            hoursWorked: 0,
+            lateHours: 0,
+            notes: 'Tidak Hadir / Izin'
+          };
+        } else if (d.dayIndex === 2) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'izin',
+            shiftTime: '-',
+            hoursWorked: 0,
+            lateHours: 0,
+            notes: 'Tidak Hadir / Izin'
+          };
+        } else if (d.dayIndex === 3) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'telat',
+            shiftTime: '14:00 - 23:00',
+            hoursWorked: 7,
+            lateHours: 4,
+            notes: 'Telat 4 Jam (Call 10:00, Masuk 14:00)'
+          };
+        } else if (d.dayIndex === 4) {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'telat',
+            shiftTime: '12:40 - 23:00',
+            hoursWorked: 8.3,
+            lateHours: 2.7,
+            notes: 'Telat 2 Jam 40 Mnt (Call 10:00, Masuk 12:40)'
+          };
+        } else {
+          return {
+            dayIndex: d.dayIndex,
+            dayLabel: d.label,
+            status: 'hadir',
+            shiftTime: '10:00 - 23:00',
+            hoursWorked: 11,
+            lateHours: 0,
+            notes: 'Shift Penuh 11 Jam Efektif'
           };
         }
       } else {
@@ -1045,8 +1098,8 @@
     const totalLateDeduction = Math.round(totalLateHours * RATE_PER_HOUR);
 
     document.getElementById('sumTotalDays').innerText = `${totalDaysPresent} Hari`;
-    document.getElementById('sumTotalHours').innerText = `${totalHoursWorked} Jam`;
-    document.getElementById('sumLateHours').innerText = `${totalLateHours} Jam`;
+    document.getElementById('sumTotalHours').innerText = `${+(totalHoursWorked.toFixed(1))} Jam`;
+    document.getElementById('sumLateHours').innerText = `${+(totalLateHours.toFixed(1))} Jam`;
     document.getElementById('sumLateDeduction').innerText = totalLateDeduction > 0 ? `- ${formatIDR(totalLateDeduction)}` : 'Rp 0';
     document.getElementById('sumGrandTotal').innerText = formatIDR(grandTotalHonor);
     document.getElementById('dispTerbilang').innerHTML = `<b>Terbilang:</b> ${angkaKeTerbilang(grandTotalHonor)} Rupiah`;
@@ -1085,7 +1138,7 @@
     });
 
     try {
-      localStorage.setItem('arthur_mdl_timesheets_data_v4', JSON.stringify(allTimesheets));
+      localStorage.setItem('arthur_mdl_timesheets_data_v5', JSON.stringify(allTimesheets));
     } catch(e) {}
   }
 
@@ -1100,7 +1153,7 @@
 
   function loadSavedData() {
     try {
-      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v4');
+      const saved = localStorage.getItem('arthur_mdl_timesheets_data_v5');
       if (saved) {
         allTimesheets = JSON.parse(saved);
       }

@@ -3,6 +3,12 @@
   "name": "Arthur MDL WhatsApp Dispatcher",
   "version": "3.0.0",
   "description": "Zero-tab-bloat WhatsApp Web dispatcher for the UKRIDA MDL student payroll slip. Reuses exactly one WhatsApp Web tab for every student.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "arthur-mdl-dispatcher@local",
+      "strict_min_version": "109.0"
+    }
+  },
   "permissions": ["tabs", "storage"],
   "host_permissions": [
     "https://web.whatsapp.com/*",

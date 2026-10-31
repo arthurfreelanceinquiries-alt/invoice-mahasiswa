@@ -931,14 +931,6 @@
           <td class="meta-val" id="slipNumber">SLIP/MDL/001</td>
         </tr>
         <tr>
-          <td class="meta-label">Periode Kerja:</td>
-          <td class="meta-val">Senin s.d. Senin (8 Hari)</td>
-        </tr>
-        <tr>
-          <td class="meta-label">Standar Shift:</td>
-          <td class="meta-val">10:00 - 23:00 WIB</td>
-        </tr>
-        <tr>
           <td class="meta-label">Tanggal Cetak:</td>
           <td class="meta-val" id="slipPrintDate">-</td>
         </tr>
@@ -948,18 +940,8 @@
 
   <!-- TITLE -->
   <div class="doc-title-block">
-    <div class="doc-title">SLIP RINCIAN HONORARIUM & JAM KERJA</div>
-    <div class="doc-subinfo">Transparansi Perhitungan Honorarium & Potongan Presensi Mahasiswa</div>
-  </div>
-
-  <!-- TRANSPARENCY NOTICE STRIPE -->
-  <div class="transparency-stripe">
-    <div>
-      <b>📌 Rumus Penggajian:</b> Standar Full Shift: <b>Rp 150.000 / Hari (11 Jam Kerja Efektif)</b>.
-    </div>
-    <div>
-      <b>Tarif per Jam:</b> Rp 150.000 ÷ 11 Jam ≈ <b>Rp 13.636,36 / Jam</b>
-    </div>
+    <div class="doc-title">SLIP TANDA TERIMA HONORARIUM PANITIA</div>
+    <div class="doc-subinfo">Kepanitiaan Pasukan Mahasiswa UKRIDA — MDL Esports Indonesia</div>
   </div>
 
   <!-- STUDENT PROFILE CARD -->
@@ -985,7 +967,7 @@
       </div>
       <div class="profile-row">
         <span class="lbl">Status Penugasan:</span>
-        <span class="val" id="dispShiftStatus">Aktif Penuh (8 Hari)</span>
+        <span class="val" id="dispShiftStatus">Aktif</span>
       </div>
       <div class="profile-row">
         <span class="lbl">Koordinator:</span>
@@ -1011,52 +993,32 @@
   <table class="timesheet-table">
     <thead>
       <tr>
-        <th style="width: 14%;">Hari / Tanggal</th>
-        <th style="width: 20%;">Status Kehadiran</th>
-        <th style="width: 12%; text-align: center;">Jam Shift</th>
-        <th style="width: 10%; text-align: center;" title="Total jam kerja riil hari ini">Jam Kerja</th>
-        <th style="width: 10%; text-align: center;" title="Jam potongan karena terlambat/kurang">Potongan</th>
-        <th style="width: 14%; text-align: right;">Honor Harian</th>
-        <th style="width: 20%;">Catatan / Keterangan</th>
+        <th style="width: 25%;">Tanggal Penugasan</th>
+        <th style="width: 25%;">Status Kehadiran</th>
+        <th style="width: 22%; text-align: right;">Honorarium</th>
+        <th style="width: 28%;">Keterangan</th>
       </tr>
     </thead>
     <tbody id="timesheetBody">
-      <!-- Generated Daily Rows (Day 1 s.d. Day 8) -->
+      <!-- Generated Daily Rows -->
     </tbody>
   </table>
 
   <!-- SUMMARY & NOTES -->
   <div class="summary-grid">
     <div class="notes-box">
-      <h4>💡 Ketentuan Transparansi Lapangan:</h4>
-      <p>1. Honorarium dasar shift penuh adalah <b>Rp 150.000 / hari</b> (standar 11 jam kerja efektif).</p>
-      <p>2. Keterlambatan atau kekurangan jam kerja dihitung proporsional: <b>Jam Kerja Aktual × (Rp 150.000 / 11)</b>.</p>
-      <p>3. Slip ini merupakan bukti transparansi resmi agar setiap panitia memahami rincian hak honor yang diterima tanpa potongan tersembunyi.</p>
+      <h4>💡 Keterangan Dokumen:</h4>
+      <p>1. Dokumen ini merupakan bukti sah tanda terima honorarium kepanitiaan mahasiswa UKRIDA pada event MDL Esports Indonesia.</p>
+      <p>2. Pembayaran disalurkan langsung secara netto ke nomor rekening masing-masing panitia tanpa potongan tersembunyi.</p>
     </div>
 
     <div class="calc-box">
-      <div class="calc-row">
-        <span>Total Hari Hadir:</span>
-        <span id="sumTotalDays" style="font-weight: 700;">8 Hari</span>
-      </div>
-      <div class="calc-row">
-        <span>Akumulasi Jam Kerja:</span>
-        <span id="sumTotalHours" style="font-weight: 700;">88 Jam</span>
-      </div>
-      <div class="calc-row">
-        <span>Total Jam Keterlambatan:</span>
-        <span id="sumLateHours" style="color: var(--danger); font-weight: 700;">0 Jam</span>
-      </div>
-      <div class="calc-row">
-        <span>Potongan Keterlambatan:</span>
-        <span id="sumLateDeduction" style="color: var(--danger); font-weight: 700;">- Rp 0</span>
-      </div>
       <div class="calc-row grand-total">
         <span>TOTAL HONOR DITERIMA:</span>
-        <span id="sumGrandTotal" style="color: var(--primary-accent);">Rp 1.200.000</span>
+        <span id="sumGrandTotal" style="color: var(--primary-accent);">Rp 0</span>
       </div>
       <div class="terbilang-banner" id="dispTerbilang">
-        <b>Terbilang:</b> Satu Juta Dua Ratus Ribu Rupiah
+        <b>Terbilang:</b> Nol Rupiah
       </div>
     </div>
   </div>
@@ -1355,17 +1317,17 @@
     document.getElementById('sigStudentNIM').innerText = `NIM: ${student.nim}`;
     
     if (student.isUsher) {
-      document.getElementById('dispShiftStatus').innerText = "Khusus Day 1 & Day 4 (2 Hari Kerja)";
+      document.getElementById('dispShiftStatus').innerText = "Usher Awarding (Aktif)";
     } else if (student.isFloor) {
-      document.getElementById('dispShiftStatus').innerText = "Mulai Rabu s.d. Minggu (5 Hari Kerja Penuh)";
+      document.getElementById('dispShiftStatus').innerText = "Floor Officer (Aktif)";
     } else if (student.isRegistration) {
-      document.getElementById('dispShiftStatus').innerText = "Penugasan 4 Hari Kerja Registrasi";
+      document.getElementById('dispShiftStatus').innerText = "Registration Officer (Aktif)";
     } else if (student.id === 14) {
-      document.getElementById('dispShiftStatus').innerText = "Broadcast Officer + Pengganti Runner Logistic";
+      document.getElementById('dispShiftStatus').innerText = "Broadcast Officer (Aktif)";
     } else if (student.id === 5) {
-      document.getElementById('dispShiftStatus').innerText = "Runner Logistic (Penyesuaian Jam Riil)";
+      document.getElementById('dispShiftStatus').innerText = "Runner Logistic (Aktif)";
     } else {
-      document.getElementById('dispShiftStatus').innerText = "Aktif Penuh (8 Hari Operasional)";
+      document.getElementById('dispShiftStatus').innerText = "Aktif";
     }
 
     const tbody = document.getElementById('timesheetBody');
@@ -1387,22 +1349,13 @@
         <td>
           <span class="print-only print-status-text" style="font-weight: 600;">${getStatusLabel(row.status)}</span>
           <select class="screen-only status-select" onchange="onRowStatusChange(${idx}, this.value)">
-            <option value="hadir" ${row.status === 'hadir' ? 'selected' : ''}>Hadir Penuh (11 Jam)</option>
-            <option value="telat" ${row.status === 'telat' ? 'selected' : ''}>Hadir Telat / Jam Kurang</option>
-            <option value="ganti" ${row.status === 'ganti' ? 'selected' : ''}>Hadir + Gantikan Crew</option>
-            <option value="double" ${row.status === 'double' ? 'selected' : ''}>Double Shift (22 Jam)</option>
+            <option value="hadir" ${row.status === 'hadir' ? 'selected' : ''}>Hadir Penuh</option>
+            <option value="telat" ${row.status === 'telat' ? 'selected' : ''}>Hadir (Penyesuaian)</option>
+            <option value="ganti" ${row.status === 'ganti' ? 'selected' : ''}>Hadir + Cover</option>
+            <option value="double" ${row.status === 'double' ? 'selected' : ''}>Double Shift</option>
             <option value="izin" ${row.status === 'izin' ? 'selected' : ''}>Tidak Hadir / Izin</option>
             <option value="off" ${row.status === 'off' ? 'selected' : ''}>Libur Shift</option>
           </select>
-        </td>
-        <td class="text-center">
-          <input type="text" class="shift-time text-center" value="${row.shiftTime || '10:00 - 23:00'}" style="width: 95px;" oninput="updateRowCalc(${idx})">
-        </td>
-        <td class="text-center">
-          <input type="number" class="hours-worked text-center" min="0" max="15" step="0.1" value="${row.hoursWorked}" style="width: 50px; font-weight: 700;" oninput="updateRowCalc(${idx})">
-        </td>
-        <td class="text-center" style="color: var(--danger); font-weight: 700;">
-          <span class="late-hours-text">${row.lateHours > 0 ? '-' + row.lateHours + ' Jam' : '0'}</span>
         </td>
         <td class="text-right" style="font-weight: 700; color: #0f172a;">
           <span class="day-honor-text">Rp 0</span>
@@ -1779,8 +1732,10 @@
     }
 
     rowData.dayPay = dayPay;
-    tr.querySelector('.late-hours-text').innerText = rowData.lateHours > 0 ? `-${rowData.lateHours} Jam` : '0';
-    tr.querySelector('.day-honor-text').innerText = formatIDR(dayPay);
+    const lateText = tr.querySelector('.late-hours-text');
+    if (lateText) lateText.innerText = rowData.lateHours > 0 ? `-${rowData.lateHours} Jam` : '0';
+    const dayHonorText = tr.querySelector('.day-honor-text');
+    if (dayHonorText) dayHonorText.innerText = formatIDR(dayPay);
   }
 
   function calculateTotal() {
@@ -1801,12 +1756,19 @@
 
     const totalLateDeduction = Math.round(totalLateHours * RATE_PER_HOUR);
 
-    document.getElementById('sumTotalDays').innerText = `${totalDaysPresent} Hari`;
-    document.getElementById('sumTotalHours').innerText = `${+(totalHoursWorked.toFixed(1))} Jam`;
-    document.getElementById('sumLateHours').innerText = `${+(totalLateHours.toFixed(1))} Jam`;
-    document.getElementById('sumLateDeduction').innerText = totalLateDeduction > 0 ? `- ${formatIDR(totalLateDeduction)}` : 'Rp 0';
-    document.getElementById('sumGrandTotal').innerText = formatIDR(grandTotalHonor);
-    document.getElementById('dispTerbilang').innerHTML = `<b>Terbilang:</b> ${angkaKeTerbilang(grandTotalHonor)} Rupiah`;
+    const sumDays = document.getElementById('sumTotalDays');
+    if (sumDays) sumDays.innerText = `${totalDaysPresent} Hari`;
+    const sumHours = document.getElementById('sumTotalHours');
+    if (sumHours) sumHours.innerText = `${+(totalHoursWorked.toFixed(1))} Jam`;
+    const sumLate = document.getElementById('sumLateHours');
+    if (sumLate) sumLate.innerText = `${+(totalLateHours.toFixed(1))} Jam`;
+    const sumLateDed = document.getElementById('sumLateDeduction');
+    if (sumLateDed) sumLateDed.innerText = totalLateDeduction > 0 ? `- ${formatIDR(totalLateDeduction)}` : 'Rp 0';
+    
+    const sumGrand = document.getElementById('sumGrandTotal');
+    if (sumGrand) sumGrand.innerText = formatIDR(grandTotalHonor);
+    const dispTer = document.getElementById('dispTerbilang');
+    if (dispTer) dispTer.innerHTML = `<b>Terbilang:</b> ${angkaKeTerbilang(grandTotalHonor)} Rupiah`;
   }
 
   function formatIDR(num) {
@@ -2121,29 +2083,16 @@
     const summary = getStudentSummary(studentId);
     if (!summary) return '';
 
-    let catatanText = '';
-    if (summary.notesSummary.length > 0) {
-      catatanText = `\n📝 *CATATAN PRESENSI & ADJUSTMENT*\n` + summary.notesSummary.join('\n') + `\n`;
-      if (summary.totalLateDeduction > 0) {
-        catatanText += `• Total Potongan Jam Kurang: -${formatIDR(summary.totalLateDeduction)}\n`;
-      }
-    }
-
     const msg = `Halo *${summary.student.name}* (NIM: ${summary.student.nim}),\n\n` +
-      `Berikut rincian honorarium dan transparansi jam kerja kepanitiaan *MDL Esports Indonesia (UKRIDA)*:\n\n` +
+      `Berikut rincian honorarium kepanitiaan *MDL Esports Indonesia (UKRIDA)*:\n\n` +
       `👤 *DATA PENUGASAN*\n` +
       `• Divisi: ${summary.student.role}\n` +
-      `• Standar Shift: 10:00 - 23:00 WIB (11 Jam Efektif)\n` +
       `• Rekening: BCA - Rekening Mahasiswa\n\n` +
-      `📊 *REKAPITULASI PRESENSI*\n` +
-      `• Kehadiran: ${summary.totalDaysPresent} Hari\n` +
-      `• Total Jam Kerja: ${summary.totalHoursWorked} Jam\n` +
-      catatanText + `\n` +
       `💰 *TOTAL HONOR BERSIH DITERIMA*\n` +
       `*${formatIDR(summary.grandTotalHonor)}*\n` +
       `_${summary.terbilang}_\n\n` +
       `📄 *SLIP DIGITAL & CETAK RESMI (PDF)*\n` +
-      `Rincian absensi harian dan lembar tanda terima resmi dapat diakses dan diunduh di tautan berikut:\n` +
+      `Tanda terima resmi dapat diakses dan diunduh di tautan berikut:\n` +
       `👉 ${summary.slipLink}\n\n` +
       `Mohon dicek kembali rincian di atas ya. Jika sudah sesuai atau ada kendala pencairan rekening BCA, silakan langsung konfirmasi ke Arthur Reezan. Terima kasih banyak atas dedikasi dan kerja kerasnya selama event berlangsung! 🙏✨\n\n` +
       `—\n` +
@@ -2210,7 +2159,6 @@
         </td>
         <td>
           <div style="font-weight: 600;">${s.role}</div>
-          <div style="font-size: 11px; color: #64748b;">${summary.totalDaysPresent} Hari • ${summary.totalHoursWorked} Jam</div>
         </td>
         <td style="text-align: right; font-weight: 700; color: #16a34a;">
           ${formatIDR(summary.grandTotalHonor)}

@@ -593,11 +593,6 @@
   <div class="toolbar-left">
     <a href="slip.html" class="btn btn-nav-slip">🧾 Buka Slip Per Mahasiswa (16 Org) ➔</a>
     <a href="slip.html?action=wa" class="btn btn-wa" style="text-decoration: none;">💬 Kirim via WhatsApp Web</a>
-    <div class="quick-rate-box">
-      <span>Tarif Cepat/Jam: Rp</span>
-      <input type="number" id="quickRateInput" value="13636" min="0" step="500">
-      <button class="btn" style="padding: 2px 7px; font-size: 11px;" onclick="applyQuickRate()" title="Basis Rp 150.000 / 11 Jam">⚡ Terapkan (Rp 150rb/11 Jam)</button>
-    </div>
   </div>
   <div class="toolbar-right">
     <button class="btn" onclick="loadDefaultPanitia()">🔄 Reset Data</button>
@@ -650,17 +645,7 @@
   <!-- TITLE -->
   <div class="doc-title-block">
     <div class="doc-title">INVOICE & REKAPITULASI HONORARIUM PANITIA</div>
-    <div class="doc-subinfo">Rekapitulasi Akumulasi Jam Kerja Pasukan Mahasiswa UKRIDA Periode Penuh</div>
-  </div>
-
-  <!-- OPERATIONAL BANNER -->
-  <div class="operational-banner">
-    <div>
-      <b>⏱️ Ketentuan Shift:</b> Call Crew <b>10:00 WIB</b> s.d. Selesai Shift <b>23:00 WIB</b> (Standar <b>11 Jam Kerja Efektif / Hari</b>).
-    </div>
-    <div>
-      <b>📅 Periode Operasional:</b> Akumulasi <b>Senin s.d. Senin (8 Hari Kalender)</b>.
-    </div>
+    <div class="doc-subinfo">Rekapitulasi Honorarium Pasukan Mahasiswa UKRIDA — MDL Esports Indonesia</div>
   </div>
 
   <!-- PARTIES BOX -->
@@ -686,15 +671,11 @@
   <table class="invoice-table" id="workersTable">
     <thead>
       <tr>
-        <th style="width: 3%;" class="text-center">No</th>
-        <th style="width: 22%;">Nama Mahasiswa</th>
-        <th style="width: 11%;">NIM</th>
-        <th style="width: 20%;">Divisi / Tugas</th>
-        <th style="width: 6%;" class="text-center" title="Jumlah Hari Kerja">Hari</th>
-        <th style="width: 6%;" class="text-center" title="Jam Kerja per Hari">Jam/Hr</th>
-        <th style="width: 8%;" class="text-center" title="Total Akumulasi Jam Kerja">Total Jam</th>
-        <th style="width: 10%;" class="text-right">Tarif / Jam</th>
-        <th style="width: 12%;" class="text-right">Total Honor</th>
+        <th style="width: 4%;" class="text-center">No</th>
+        <th style="width: 32%;">Nama Mahasiswa</th>
+        <th style="width: 18%;">NIM</th>
+        <th style="width: 26%;">Divisi / Penugasan</th>
+        <th style="width: 18%;" class="text-right">Total Honor</th>
         <th class="col-action text-center no-print" style="width: 2%;">✕</th>
       </tr>
     </thead>
@@ -732,10 +713,6 @@
       <div class="calc-row">
         <span>Total Panitia Mahasiswa:</span>
         <span id="summaryTotalCrew" style="font-weight: 600;">16 Orang</span>
-      </div>
-      <div class="calc-row">
-        <span>Akumulasi Jam Kerja:</span>
-        <span id="summaryTotalHours" style="font-weight: 600;">0 Jam</span>
       </div>
       <div class="calc-row">
         <span>Subtotal Honorarium:</span>
@@ -817,69 +794,31 @@
     const tr = document.createElement('tr');
     tr.className = 'worker-row';
     
-    const days = data.days !== undefined ? data.days : 8;
-    const hoursPerDay = data.hoursPerDay !== undefined ? data.hoursPerDay : 13;
-    const totalHours = data.totalHours !== undefined ? data.totalHours : (days * hoursPerDay);
-    const hourlyRate = data.rate !== undefined ? data.rate : 0;
+    let honor = 0;
+    if (data.honor !== undefined) {
+      honor = data.honor;
+    } else if (data.totalHours !== undefined && data.rate !== undefined) {
+      honor = Math.round(data.totalHours * (150000 / 11));
+    } else if (data.days !== undefined) {
+      honor = data.days * 150000;
+    }
 
     tr.innerHTML = `
       <td class="text-center row-num" style="color: var(--text-muted); font-weight: 600;"></td>
       <td><input type="text" class="worker-name" placeholder="Nama Mahasiswa" value="${data.name || ''}" oninput="saveAndRecalc()"></td>
       <td><input type="text" class="worker-nim text-center" placeholder="NIM" value="${data.nim || ''}" oninput="saveAndRecalc()"></td>
       <td><input type="text" class="worker-role" placeholder="Divisi / Tugas" value="${data.role || ''}" oninput="saveAndRecalc()"></td>
-      <td><input type="number" class="worker-days text-center" min="1" max="30" step="any" value="${days}" oninput="onDaysOrHoursChange(this)"></td>
-      <td><input type="number" class="worker-hours-day text-center" min="1" max="24" step="any" value="${hoursPerDay}" oninput="onDaysOrHoursChange(this)"></td>
-      <td><input type="number" class="worker-total-hours text-center" min="0" step="any" value="${totalHours}" oninput="onTotalHoursChange(this)" style="font-weight: 700;"></td>
-      <td><input type="number" class="worker-rate text-right" placeholder="0" min="0" step="500" value="${hourlyRate}" oninput="calculateWorkerRow(this)"></td>
-      <td class="text-right worker-subtotal" style="font-weight: 700;">Rp 0</td>
+      <td><input type="number" class="worker-honor text-right" placeholder="0" min="0" step="1000" value="${honor}" oninput="calculateWorkerRow(this)" style="font-weight: 700;"></td>
       <td class="col-action text-center no-print">
         <button class="btn-delete-row" onclick="removeRow(this)">✕</button>
       </td>
     `;
     tbody.appendChild(tr);
     renumberRows();
-    calculateWorkerRow(tr.querySelector('.worker-rate'));
-  }
-
-  function onDaysOrHoursChange(elem) {
-    const row = elem.closest('tr');
-    const days = parseNumber(row.querySelector('.worker-days').value);
-    const hoursDay = parseNumber(row.querySelector('.worker-hours-day').value);
-    const totalHours = days * hoursDay;
-    row.querySelector('.worker-total-hours').value = totalHours;
-    calculateWorkerRow(elem);
-  }
-
-  function onTotalHoursChange(elem) {
-    calculateWorkerRow(elem);
+    calculateWorkerRow(tr.querySelector('.worker-honor'));
   }
 
   function calculateWorkerRow(elem) {
-    const row = elem.closest('tr');
-    const totalHours = parseNumber(row.querySelector('.worker-total-hours').value);
-    const rate = parseNumber(row.querySelector('.worker-rate').value);
-    let subtotal = 0;
-    if (Math.abs(rate - 13636) <= 1 || Math.abs(rate - (150000 / 11)) < 1) {
-      subtotal = Math.round(totalHours * (150000 / 11));
-    } else {
-      subtotal = Math.round(totalHours * rate);
-    }
-    
-    row.querySelector('.worker-subtotal').innerText = formatIDR(subtotal);
-    row.querySelector('.worker-subtotal').dataset.val = subtotal;
-    calculateAll();
-  }
-
-  function applyQuickRate() {
-    const quickRate = parseNumber(document.getElementById('quickRateInput').value);
-    if (quickRate <= 0) {
-      alert("Masukkan nominal tarif per jam yang valid.");
-      return;
-    }
-    document.querySelectorAll('#workersBody tr').forEach(tr => {
-      tr.querySelector('.worker-rate').value = quickRate;
-      calculateWorkerRow(tr.querySelector('.worker-rate'));
-    });
     calculateAll();
   }
 
@@ -896,25 +835,25 @@
     workerRows.forEach((tr, idx) => {
       tr.querySelector('.row-num').innerText = idx + 1;
     });
-    document.getElementById('summaryTotalCrew').innerText = workerRows.length + " Orang";
+    const crewCount = document.getElementById('summaryTotalCrew');
+    if (crewCount) crewCount.innerText = workerRows.length + " Orang";
   }
 
   function calculateAll() {
     let totalWorkersSubtotal = 0;
-    let totalCumulativeHours = 0;
 
     document.querySelectorAll('#workersBody tr').forEach(row => {
-      totalWorkersSubtotal += parseNumber(row.querySelector('.worker-subtotal').dataset.val);
-      totalCumulativeHours += parseNumber(row.querySelector('.worker-total-hours').value);
+      const honorInput = row.querySelector('.worker-honor');
+      if (honorInput) {
+        totalWorkersSubtotal += parseNumber(honorInput.value);
+      }
     });
 
     const dp = parseNumber(document.getElementById('downPaymentInput').value);
     const grandTotal = totalWorkersSubtotal - dp;
 
-    document.getElementById('summaryTotalHours').innerText = totalCumulativeHours.toLocaleString('id-ID') + " Jam";
     document.getElementById('subtotalWorkersText').innerText = formatIDR(totalWorkersSubtotal);
     document.getElementById('grandTotalText').innerText = formatIDR(grandTotal > 0 ? grandTotal : 0);
-
     document.getElementById('terbilangBox').innerHTML = '<b>Terbilang:</b> ' + angkaKeTerbilang(grandTotal > 0 ? grandTotal : 0) + ' Rupiah';
 
     saveToStorage();
@@ -960,7 +899,6 @@
         bankAccNo: document.getElementById('bankAccNo').value,
         bankAccName: document.getElementById('bankAccName').value,
         downPayment: document.getElementById('downPaymentInput').value,
-        quickRate: document.getElementById('quickRateInput').value,
         workers: []
       };
 
@@ -969,20 +907,17 @@
           name: tr.querySelector('.worker-name').value,
           nim: tr.querySelector('.worker-nim').value,
           role: tr.querySelector('.worker-role').value,
-          days: tr.querySelector('.worker-days').value,
-          hoursPerDay: tr.querySelector('.worker-hours-day').value,
-          totalHours: tr.querySelector('.worker-total-hours').value,
-          rate: tr.querySelector('.worker-rate').value
+          honor: parseNumber(tr.querySelector('.worker-honor').value)
         });
       });
 
-      localStorage.setItem('arthur_invoice_data_hourly_mdl_v6', JSON.stringify(data));
+      localStorage.setItem('arthur_invoice_data_total_mdl_v7', JSON.stringify(data));
     } catch(e) {}
   }
 
   function exportJSON() {
     saveToStorage();
-    const data = localStorage.getItem('arthur_invoice_data_hourly_mdl_v6');
+    const data = localStorage.getItem('arthur_invoice_data_total_mdl_v7');
     if (!data) return;
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -1018,7 +953,6 @@
         if (data.bankAccNo) document.getElementById('bankAccNo').value = data.bankAccNo;
         if (data.bankAccName) document.getElementById('bankAccName').value = data.bankAccName;
         if (data.downPayment) document.getElementById('downPaymentInput').value = data.downPayment;
-        if (data.quickRate) document.getElementById('quickRateInput').value = data.quickRate;
 
         document.getElementById('workersBody').innerHTML = '';
         if (data.workers && data.workers.length > 0) {
@@ -1042,31 +976,31 @@
     document.getElementById('workersBody').innerHTML = '';
 
     const panitiaList = [
-      // Runner Logistic : 5 (8 Hari Kerja x 11 Jam = 88 Jam)
-      { name: "Steven Felizio", nim: "412023011", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
-      { name: "Nathanael", nim: "422026010", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
-      { name: "Nelson Kusuma", nim: "412023008", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
-      { name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", days: 8, hoursPerDay: 11, rate: 13636 },
-      { name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic (Penyesuaian 59,3 Jam)", days: 6, hoursPerDay: 9.88, totalHours: 59.3, rate: 13636 },
+      // Runner Logistic : 5 (Total Rp 6.000.000)
+      { name: "Steven Felizio", nim: "412023011", role: "Runner Logistic", honor: 1200000 },
+      { name: "Nathanael", nim: "422026010", role: "Runner Logistic", honor: 1200000 },
+      { name: "Nelson Kusuma", nim: "412023008", role: "Runner Logistic", honor: 1200000 },
+      { name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", honor: 1200000 },
+      { name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic", honor: 808636 },
       
-      // Floor Officer : 6 (5 Hari Kerja Mulai Rabu x 11 Jam = 55 Jam)
-      { name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
-      { name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
-      { name: "Juan Louis", nim: "322025002", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
-      { name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
-      { name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
-      { name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer (Mulai Rabu)", days: 5, hoursPerDay: 11, rate: 13636 },
+      // Floor Officer : 6 (Total Rp 4.500.000)
+      { name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer", honor: 750000 },
+      { name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer", honor: 750000 },
+      { name: "Juan Louis", nim: "322025002", role: "Floor Officer", honor: 750000 },
+      { name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer", honor: 750000 },
+      { name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer", honor: 750000 },
+      { name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer", honor: 750000 },
 
-      // Manpower Registration : 2 (4 Hari Kerja x 11 Jam = 44 Jam)
-      { name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", days: 4, hoursPerDay: 11, rate: 13636 },
-      { name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", days: 4, hoursPerDay: 11, rate: 13636 },
+      // Manpower Registration : 2 (Total Rp 1.200.000)
+      { name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", honor: 600000 },
+      { name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", honor: 600000 },
 
-      // Broadcast Officer : 1 (8 Hari + Pengganti Siddharta = 116,7 Jam)
-      { name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer (+ Pengganti Siddharta)", days: 8, hoursPerDay: 14.59, totalHours: 116.7, rate: 13636 },
+      // Broadcast Officer : 1 (Total Rp 1.591.364)
+      { name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer", honor: 1591364 },
 
-      // Usher Awarding : 2 (Khusus Day 1 & Day 4 = 2 Hari Kerja x 11 Jam = 22 Jam)
-      { name: "Cristabel Grasilia Angelica", nim: "422026008", role: "Usher Awarding (Day 1 & 4)", days: 2, hoursPerDay: 11, rate: 13636 },
-      { name: "Gaby", nim: "[Menunggu Konfirmasi]", role: "Usher Awarding (Day 1 & 4)", days: 2, hoursPerDay: 11, rate: 13636 }
+      // Usher Awarding : 2 (Total Rp 600.000)
+      { name: "Cristabel Grasilia Angelica", nim: "422026008", role: "Usher Awarding", honor: 300000 },
+      { name: "Gaby", nim: "[Menunggu Konfirmasi]", role: "Usher Awarding", honor: 300000 }
     ];
 
     panitiaList.forEach(p => addWorkerRow(p));
@@ -1079,12 +1013,12 @@
       document.getElementById('downPaymentInput').value = 0;
       addWorkerRow();
       calculateAll();
-      localStorage.removeItem('arthur_invoice_data_hourly_mdl_v6');
+      localStorage.removeItem('arthur_invoice_data_total_mdl_v7');
     }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('arthur_invoice_data_hourly_mdl_v6');
+    const saved = localStorage.getItem('arthur_invoice_data_total_mdl_v7');
     if (saved) {
       try {
         const data = JSON.parse(saved);

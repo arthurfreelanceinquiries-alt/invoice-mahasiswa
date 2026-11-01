@@ -3,1040 +3,1000 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice & Rekapitulasi Honorarium Panitia Mahasiswa UKRIDA - MDL Esports</title>
+  <title>Invoice MDL ID S14 PLAYOFF - PT. Teknologi Abadi Sejahtera</title>
   <style>
-    :root {
-      --primary: #0f172a;
-      --primary-accent: #1d4ed8;
-      --surface: #ffffff;
-      --background: #f1f5f9;
-      --border: #cbd5e1;
-      --border-light: #e2e8f0;
-      --text: #0f172a;
-      --text-muted: #475569;
-      --danger: #dc2626;
-      --success: #16a34a;
-    }
-
+    /* RESET & BASE */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
     body {
-      background: var(--background);
-      color: var(--text);
-      padding: 30px 15px 50px 15px;
-      line-height: 1.45;
+      background-color: #525659;
+      color: #000000;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 14.5px;
+      line-height: 1.35;
+      padding: 20px 10px 40px 10px;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* TOP FLOATING TOOLBAR */
-    .toolbar-container {
-      max-width: 1000px;
-      margin: 0 auto 20px auto;
-      background: #ffffff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-      border: 1px solid var(--border);
+    /* TOP ACTION & TAB BAR */
+    .top-bar-container {
+      max-width: 1040px;
+      margin: 0 auto 16px auto;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 8px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       flex-wrap: wrap;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
 
-    .toolbar-left, .toolbar-right {
+    .tab-group {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
       flex-wrap: wrap;
     }
 
-    .btn {
+    .tab-btn {
+      background: #334155;
+      color: #e2e8f0;
+      border: 1px solid #475569;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 7px 13px;
-      font-size: 12.5px;
-      font-weight: 600;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: #ffffff;
-      color: var(--text);
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.15s ease;
-    }
-    .btn:hover {
-      background: #f8fafc;
-      border-color: #94a3b8;
+      gap: 5px;
     }
 
-    .btn-primary {
-      background: var(--primary-accent);
+    .tab-btn:hover {
+      background: #475569;
       color: #ffffff;
-      border-color: var(--primary-accent);
-    }
-    .btn-primary:hover {
-      background: #1e40af;
-      box-shadow: 0 4px 10px rgba(29, 78, 216, 0.25);
     }
 
-    .btn-nav-slip {
-      background: #eff6ff;
-      border-color: #bfdbfe;
-      color: #1d4ed8;
-    }
-    .btn-nav-slip:hover {
-      background: #dbeafe;
+    .tab-btn.active {
+      background: #2563eb;
+      border-color: #3b82f6;
+      color: #ffffff;
     }
 
-    .btn-wa {
-      background: #25d366 !important;
-      color: #ffffff !important;
-      border: 1px solid #1ebe57 !important;
-      font-weight: 700 !important;
-      cursor: pointer;
-    }
-    .btn-wa:hover {
-      background: #1ebe57 !important;
-      color: #ffffff !important;
-    }
-
-    .quick-rate-box {
+    .action-group {
       display: flex;
-      align-items: center;
       gap: 6px;
-      background: #f8fafc;
-      padding: 3px 8px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .quick-rate-box input {
-      width: 80px;
-      padding: 3px 6px;
-      font-size: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 4px;
-      text-align: right;
-    }
-
-    /* AUTHENTIC A4 PAPER CONTAINER */
-    .page-sheet {
-      max-width: 1000px;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 4px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-      border: 1px solid #cbd5e1;
-      padding: 40px 45px;
-      box-sizing: border-box;
-    }
-
-    /* REMOVE ALL NATIVE DROPDOWN ARROWS, SPINNERS, AND CALENDAR ICONS */
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none !important;
-      margin: 0 !important;
-    }
-    input[type="number"] {
-      -moz-appearance: textfield !important;
-    }
-    input::-webkit-calendar-picker-indicator {
-      display: none !important;
-      -webkit-appearance: none !important;
-      opacity: 0 !important;
-    }
-    select {
-      -webkit-appearance: none !important;
-      -moz-appearance: none !important;
-      appearance: none !important;
-      background-image: none !important;
-    }
-
-    /* FORM INPUTS LOOKING LIKE PROFESSIONAL EDITABLE TEXT */
-    .input-edit {
-      border: 1px solid transparent;
-      background: transparent;
-      font-size: 13px;
-      color: var(--text);
-      padding: 2px 4px;
-      border-radius: 4px;
-      transition: background 0.15s, border 0.15s;
-    }
-    .input-edit:hover, .input-edit:focus {
-      background: #f8fafc;
-      border-color: #94a3b8;
-      outline: none;
-    }
-
-    /* DOCUMENT LETTERHEAD (KOP DOKUMEN) */
-    .doc-letterhead {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 2px solid #0f172a;
-      padding-bottom: 16px;
-      margin-bottom: 18px;
-    }
-
-    .org-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .org-title {
-      font-size: 17px;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.2px;
-      text-transform: uppercase;
-    }
-
-    .org-subtitle {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary-accent);
-      letter-spacing: 0.3px;
-    }
-
-    .org-address {
-      font-size: 11.5px;
-      color: var(--text-muted);
-    }
-
-    .doc-meta-table {
-      font-size: 12.5px;
-      text-align: right;
-      border-collapse: collapse;
-    }
-    .doc-meta-table td {
-      padding: 2px 0 2px 10px;
-    }
-    .doc-meta-table .meta-label {
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-    .doc-meta-table .meta-val {
-      font-weight: 700;
-      color: #0f172a;
-    }
-
-    /* DOCUMENT MAIN TITLE */
-    .doc-title-block {
-      text-align: center;
-      margin-bottom: 18px;
-    }
-    .doc-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #0f172a;
-      text-transform: uppercase;
-    }
-    .doc-subinfo {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    /* PARTIES BOX (KLIEN & KOORDINATOR) */
-    .parties-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 14px 18px;
-      margin-bottom: 18px;
-      font-size: 12.5px;
-    }
-
-    .party-col h4 {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-      border-bottom: 1px solid #e2e8f0;
-      padding-bottom: 3px;
-    }
-
-    .party-name {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #0f172a;
-      margin-top: 2px;
-    }
-
-    .party-sub {
-      color: #334155;
-      font-size: 12px;
-    }
-
-    /* OPERATIONAL BANNER */
-    .operational-banner {
-      background: #eff6ff;
-      border-left: 4px solid var(--primary-accent);
-      padding: 8px 14px;
-      font-size: 11.5px;
-      color: #1e3a8a;
-      margin-bottom: 18px;
-      display: flex;
-      justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 8px;
     }
 
-    /* TABLE DESIGN */
-    table.invoice-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 11.5px;
+    .btn-action {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-action:hover {
+      background: #f8fafc;
+    }
+
+    .btn-primary-action {
+      background: #16a34a;
+      border-color: #15803d;
+      color: #ffffff;
+    }
+
+    .btn-primary-action:hover {
+      background: #15803d;
+    }
+
+    /* SHEET PAPER WRAPPER (A4 LANDSCAPE EXACT) */
+    .sheet-wrapper {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 38px 45px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.35);
+      border-radius: 2px;
+      min-height: 680px;
+    }
+
+    /* SHEET 1: INVOICE EXACT LAYOUT */
+    .inv-header-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: #000000;
+      letter-spacing: -0.3px;
+      margin-bottom: 2px;
+    }
+
+    .inv-date-text {
+      font-size: 14.5px;
+      color: #000000;
       margin-bottom: 12px;
     }
 
-    table.invoice-table th {
-      background: #0f172a;
-      color: #ffffff;
-      font-weight: 600;
-      padding: 7px 6px;
-      border: 1px solid #0f172a;
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-    }
-
-    table.invoice-table td {
-      padding: 5px 6px;
-      border: 1px solid var(--border);
-      color: #0f172a;
-      vertical-align: middle;
-    }
-
-    table.invoice-table tbody tr:nth-child(even) {
-      background: #fbfcfd;
-    }
-
-    table.invoice-table input {
-      width: 100%;
-      border: 1px solid transparent;
-      background: transparent;
-      padding: 2px 4px;
-      font-size: 11.5px;
-      color: inherit;
-      border-radius: 3px;
-    }
-    table.invoice-table input:hover, table.invoice-table input:focus {
-      background: #ffffff;
-      border-color: #94a3b8;
-      outline: none;
-    }
-
-    .text-center { text-align: center !important; }
-    .text-right { text-align: right !important; }
-
-    .btn-delete-row {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: var(--danger);
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
-    }
-    .btn-delete-row:hover {
-      background: var(--danger);
-      color: #ffffff;
-    }
-
-    .btn-add-row {
-      background: #f8fafc;
-      border: 1px dashed #94a3b8;
-      color: #334155;
-      width: 100%;
-      padding: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-bottom: 20px;
-    }
-    .btn-add-row:hover {
-      background: #f1f5f9;
-      border-color: #475569;
-    }
-
-    /* SUMMARY SECTION */
-    .summary-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 20px;
-      margin-top: 10px;
-      margin-bottom: 25px;
-      page-break-inside: avoid;
-    }
-
-    .bank-box {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-size: 12px;
-    }
-
-    .bank-box h4 {
-      font-size: 11.5px;
-      font-weight: 800;
-      color: #0f172a;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      border-bottom: 1px solid #e2e8f0;
+    .inv-due-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid #000000;
       padding-bottom: 3px;
+      margin-bottom: 12px;
     }
 
-    .bank-row {
+    .due-left {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 4px;
+      gap: 40px;
+      align-items: baseline;
     }
 
-    .calc-box {
-      background: #ffffff;
-      border: 1.5px solid #0f172a;
-      border-radius: 6px;
-      padding: 12px 16px;
-      font-size: 12px;
-    }
-
-    .calc-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-      color: #334155;
-    }
-
-    .calc-row.grand-total {
-      margin-top: 8px;
-      padding-top: 8px;
-      border-top: 2px solid #0f172a;
+    .due-label {
+      font-weight: bold;
       font-size: 14.5px;
-      font-weight: 800;
-      color: #0f172a;
     }
 
-    .terbilang-banner {
-      margin-top: 8px;
-      font-size: 11px;
-      color: #475569;
-      font-style: italic;
-      background: #f8fafc;
-      padding: 6px 8px;
-      border-radius: 4px;
-      border: 1px dashed var(--border);
+    .due-value {
+      font-size: 14.5px;
+    }
+
+    .inv-number {
+      font-size: 14.5px;
+      text-align: right;
+    }
+
+    /* BILL TO */
+    .bill-to-section {
+      margin-bottom: 18px;
       line-height: 1.35;
     }
 
-    /* SIGNATURES (4 COLUMNS EQUAL) */
-    .signatures-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 25px;
+    .bill-to-title {
+      font-weight: bold;
+      margin-bottom: 1px;
+    }
+
+    /* TABLE */
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+    }
+
+    .invoice-table thead th {
+      border-bottom: 1px solid #000000;
+      padding: 5px 6px;
+      font-weight: normal;
       text-align: center;
-      font-size: 11px;
-      page-break-inside: avoid;
+      font-size: 14px;
     }
 
-    .sig-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 125px;
-      padding: 8px 4px;
-      border-radius: 4px;
-    }
-
-    .sig-role {
-      font-weight: 600;
-      color: var(--text-muted);
-      font-size: 10.5px;
-      min-height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .sig-line {
-      width: 115px;
-      border-bottom: 1px solid #0f172a;
-      margin-top: 48px;
-      margin-bottom: 4px;
-    }
-
-    .meterai-badge {
-      width: 62px;
-      height: 38px;
-      border: 1px dashed #94a3b8;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: 7.5px;
-      font-weight: 700;
-      color: #64748b;
-      letter-spacing: 0.2px;
-      line-height: 1.15;
-      text-transform: uppercase;
-      margin-bottom: -34px;
-      background: rgba(248, 250, 252, 0.95);
-      z-index: 1;
-    }
-
-    .sig-name {
-      font-weight: 700;
-      color: #0f172a;
-      font-size: 11.5px;
-    }
-
-    .sig-title {
-      font-size: 9.5px;
-      color: var(--text-muted);
-    }
-
-    /* STYLES FOR CLEAN PRINT PDF (A4) */
-    @page {
-      size: A4 portrait;
-      margin: 10mm 12mm 10mm 12mm;
-    }
-
-    @media print {
-      body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        font-size: 10.5px !important;
-      }
-
-      .no-print, .toolbar-container, .btn-add-row, .col-action {
+    div[id^="viewSheet"][style*="display: none"] {
         display: none !important;
       }
 
-      .page-sheet {
+      .invoice-table tbody tr {
+      background-color: #FFE1A0;
+    }
+
+    .invoice-table tbody td {
+      padding: 5px 8px;
+      text-align: center;
+      font-size: 14px;
+      border: none;
+    }
+
+    .invoice-table td.col-name {
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .invoice-table td.col-amount {
+      text-align: right;
+      padding-right: 12px;
+    }
+
+    .invoice-table td.col-total {
+      text-align: right;
+      padding-right: 12px;
+      font-weight: normal;
+    }
+
+    .editable-cell {
+      border: 1px dashed transparent;
+      outline: none;
+      padding: 1px 3px;
+      border-radius: 2px;
+      background: transparent;
+      width: 100%;
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+    }
+
+    
+    /* Hide number input spinners */
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .editable-cell:focus, .editable-cell:hover {
+      border-color: #94a3b8;
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* POST TABLE METADATA (PROJECT, PERIOD, TOTAL) */
+    .meta-post-table {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 4px;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .meta-left {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .meta-row {
+      display: flex;
+      gap: 60px;
+    }
+
+    .meta-label {
+      width: 60px;
+    }
+
+    .meta-val {
+      font-weight: normal;
+    }
+
+    .meta-right-total {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      margin-right: 12px;
+    }
+
+    .total-label {
+      font-size: 14.5px;
+    }
+
+    .total-value {
+      font-size: 14.5px;
+      font-weight: normal;
+    }
+
+    /* PAYMENT DETAILS & SIGNATURE */
+    .footer-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-top: 30px;
+    }
+
+    .payment-details-box {
+      width: 55%;
+    }
+
+    .payment-details-title {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .payment-row {
+      display: flex;
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    .pay-lbl {
+      width: 170px;
+    }
+
+    .pay-val {
+      flex: 1;
+    }
+
+    .signature-box {
+      width: 35%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sig-title {
+      font-size: 14px;
+      margin-bottom: 70px;
+    }
+
+    .sig-name {
+      font-size: 14.5px;
+    }
+
+    /* ROW CONTROLS (SCREEN ONLY) */
+    .row-btn {
+      background: none;
+      border: none;
+      color: #dc2626;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    .row-btn:hover {
+      opacity: 1;
+    }
+
+    .btn-add-table-row {
+      background: #f1f5f9;
+      border: 1px dashed #94a3b8;
+      color: #334155;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 4px;
+      font-family: -apple-system, sans-serif;
+    }
+
+    .btn-add-table-row:hover {
+      background: #e2e8f0;
+    }
+
+    /* ABSENSI SHEETS STYLING (SHEET 3, 4, 5) */
+    .absensi-header-grid {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .absensi-company-info {
+      font-size: 13.5px;
+      line-height: 1.3;
+    }
+
+    .absensi-logo-img {
+      max-height: 60px;
+      object-fit: contain;
+    }
+
+    .absensi-doc-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 16px;
+      margin: 15px 0 12px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .absensi-meta-table {
+      width: 100%;
+      margin-bottom: 15px;
+      font-size: 13.5px;
+    }
+
+    .absensi-meta-table td {
+      padding: 2px 4px;
+    }
+
+    .absensi-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+      font-size: 13.5px;
+    }
+
+    .absensi-table th, .absensi-table td {
+      border: 1px solid #000000;
+      padding: 6px 8px;
+      text-align: center;
+    }
+
+    .absensi-table th {
+      background: #f8fafc;
+      font-weight: bold;
+    }
+
+    .sign-img {
+      max-height: 38px;
+      max-width: 90px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .pj-sign-box {
+      margin-top: 15px;
+      width: 250px;
+      font-size: 13.5px;
+    }
+
+    .pj-sign-img {
+      max-height: 65px;
+      object-fit: contain;
+      display: block;
+      margin: 6px 0;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+      }
+
+      .top-bar-container, .no-print, .row-btn, .btn-add-table-row {
+        display: none !important;
+      }
+
+      .sheet-wrapper {
         box-shadow: none !important;
-        border: none !important;
-        margin: 0 !important;
         padding: 0 !important;
         max-width: 100% !important;
         width: 100% !important;
       }
 
-      .parties-wrapper, .bank-box, .operational-banner {
-        border: 1px solid #cbd5e1 !important;
-        background: #f8fafc !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+      div[id^="viewSheet"][style*="display: none"] {
+        display: none !important;
       }
 
-      table.invoice-table th {
-        background: #0f172a !important;
-        color: #ffffff !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+      .invoice-table tbody tr {
+        background-color: #FFE1A0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
 
-      table.invoice-table tbody tr:nth-child(even) {
-        background: #f8fafc !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-
-      input, select {
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        font-family: inherit !important;
-        font-size: inherit !important;
-        color: #000000 !important;
-      }
-
-      .summary-grid, .signatures-container {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+      @page {
+        size: A4 landscape;
+        margin: 0.7in 0.7in 0.75in 0.7in;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- TOP ACTION TOOLBAR -->
-<div class="toolbar-container no-print">
-  <div class="toolbar-left">
-    <a href="slip.html" class="btn btn-nav-slip">🧾 Buka Slip Per Mahasiswa (16 Org) ➔</a>
-    <a href="slip.html?action=wa" class="btn btn-wa" style="text-decoration: none;">💬 Kirim via WhatsApp Web</a>
-  </div>
-  <div class="toolbar-right">
-    <button class="btn" onclick="loadDefaultPanitia()">🔄 Reset Data</button>
-    <button class="btn" onclick="exportJSON()">💾 Export JSON</button>
-    <label class="btn" style="cursor: pointer; margin-bottom: 0;">
-      📂 Import JSON
-      <input type="file" id="jsonFileInput" accept=".json" style="display: none;" onchange="importJSON(event)">
-    </label>
-    <button class="btn" onclick="clearAllData()">🗑️ Kosongkan</button>
-    <button class="btn btn-primary" onclick="window.print()">🖨️ Cetak / PDF (A4)</button>
-  </div>
-</div>
-
-<!-- A4 PAPER SHEET -->
-<div class="page-sheet">
-  
-  <!-- DOCUMENT LETTERHEAD (KOP) -->
-  <div class="doc-letterhead">
-    <div class="org-brand">
-      <div class="org-title">UNIVERSITAS KRISTEN KRIDA WACANA</div>
-      <div class="org-subtitle">KOORDINATOR PASUKAN MAHASISWA — MDL ESPORTS INDONESIA</div>
-      <div class="org-address">Jl. Tanjung Duren Raya No. 4, Jakarta Barat 11470 • Kampus UKRIDA</div>
+  <!-- TOP BAR & NAVIGATION -->
+  <div class="top-bar-container no-print">
+    <div class="tab-group">
+      <button class="tab-btn active" onclick="switchSheet('sheet1', this)">📄 Sheet 1: Invoice</button>
+      <button class="tab-btn" onclick="switchSheet('sheet3', this)">📋 Sheet 2: Absensi Mineski Space</button>
+      <button class="tab-btn" onclick="switchSheet('sheet4', this)">📋 Sheet 3: Absensi Bali United</button>
+      <button class="tab-btn" onclick="switchSheet('sheet5', this)">📋 Sheet 4: Absensi Ukrida 2</button>
     </div>
-    <div>
-      <table class="doc-meta-table">
+    <div class="action-group">
+      <a href="slip.html" class="btn-action">🧾 Buka Slip 16 Mahasiswa ➔</a>
+      <a href="slip.html?action=wa" class="btn-action" style="color: #166534; font-weight: 700;">💬 Kirim WhatsApp</a>
+      <a href="Invoice_MDL_X_UKM_ESPORTS_UKRIDA.xlsx" download class="btn-action">📥 Unduh File Excel (.xlsx)</a>
+      <button class="btn-action btn-primary-action" onclick="window.print()">🖨️ Cetak / Simpan PDF</button>
+    </div>
+  </div>
+
+  <!-- MAIN SHEET WRAPPER -->
+  <div class="sheet-wrapper">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: INVOICE (PERSIS SHEET 1 EXCEL)       -->
+    <!-- ========================================== -->
+    <div id="viewSheet1">
+      <!-- HEADER -->
+      <div class="inv-header-title" contenteditable="true">Invoice</div>
+      <div class="inv-date-text" contenteditable="true">28/10/2026</div>
+
+      <!-- PAYMENT DUE & INVOICE NUMBER -->
+      <div class="inv-due-row">
+        <div class="due-left">
+          <span class="due-label">PAYMENT DUE BY:</span>
+          <span class="due-value" contenteditable="true">10/29/2026 (14 hari kerja)</span>
+        </div>
+        <div class="inv-number" contenteditable="true">INV/001/ MDL ID S14 PLAYOFF - (nanya)/2026</div>
+      </div>
+
+      <!-- BILL TO -->
+      <div class="bill-to-section">
+        <div class="bill-to-title">BILL TO:</div>
+        <div contenteditable="true">PT. Teknologi Abadi Sejahtera</div>
+        <div contenteditable="true">Jl. Tanjung Duren Barat I, 5,</div>
+        <div contenteditable="true">Tanjung Duren Utara, Grogol</div>
+        <div contenteditable="true">Petamburan</div>
+        <div contenteditable="true">Kota Adm. Jakarta Barat</div>
+        <div contenteditable="true">DKI Jakarta 11470</div>
+      </div>
+
+      <!-- TABLE -->
+      <table class="invoice-table" id="invTable">
+        <thead>
+          <tr>
+            <th style="width: 24%;">Name</th>
+            <th style="width: 14%;">DURATION (hari)</th>
+            <th style="width: 22%;">WORK PERIOD</th>
+            <th style="width: 10%;">QTY</th>
+            <th style="width: 15%;">AMOUNT</th>
+            <th style="width: 15%;">TOTAL AMOUNT</th>
+            <th class="no-print" style="width: 2%;"></th>
+          </tr>
+        </thead>
+        <tbody id="invTableBody">
+          <!-- Row 1: LOGISTIC -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="LOGISTIC" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="8" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="26/10/2026  - 01/11/2026 "></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="5" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">6.000.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+
+          <!-- Row 2: FLOOR -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="FLOOR" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="5" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="28/10/2026  - 01/11/2026 "></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="6" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">4.500.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+
+          <!-- Row 3: REGISTRATION -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="REGISTRATION" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="4" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="29/10/2026  - 01/11/2026 "></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="2" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">1.200.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+
+          <!-- Row 4: BROADCAST OFFICER -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="BROADCAST OFFICER" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="8" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="26/10/2026  - 01/11/2026 "></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">1.200.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+
+          <!-- Row 5: USHER AWARDING -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="USHER AWARDING" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="2" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="26/10/2026 & 29/10/2026"></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="2" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">600.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="btn-add-table-row no-print" onclick="addInvoiceRow()">➕ Tambah Baris Penugasan</button>
+
+      <!-- POST TABLE METADATA -->
+      <div class="meta-post-table">
+        <div class="meta-left">
+          <div class="meta-row">
+            <span class="meta-label">Project</span>
+            <span class="meta-val" contenteditable="true">MLBB Development League (MDL) ID S14 PLAYOFF</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">Period</span>
+            <span class="meta-val" contenteditable="true">26/10/2026 - 01/11/2026</span>
+          </div>
+        </div>
+        <div class="meta-right-total">
+          <span class="total-label">Total</span>
+          <span class="total-value" id="invGrandTotal">13.500.000</span>
+        </div>
+      </div>
+
+      <!-- FOOTER: PAYMENT DETAILS & SIGNATURE -->
+      <div class="footer-section">
+        <div class="payment-details-box">
+          <div class="payment-details-title">PAYMENT DETAILS</div>
+          <div class="payment-row">
+            <span class="pay-lbl">Name of Beneficiary</span>
+            <span class="pay-val" contenteditable="true">Arthur Reezan</span>
+          </div>
+          <div class="payment-row">
+            <span class="pay-lbl">Name of Bank</span>
+            <span class="pay-val" contenteditable="true">Bank Central Asia</span>
+          </div>
+          <div class="payment-row">
+            <span class="pay-lbl">Account Number</span>
+            <span class="pay-val" contenteditable="true" style="font-weight: 600;">7580869925</span>
+          </div>
+          <div class="payment-row">
+            <span class="pay-lbl">Branch</span>
+            <span class="pay-val" contenteditable="true">-</span>
+          </div>
+        </div>
+
+        <div class="signature-box">
+          <div class="sig-title">SIGNATURE</div>
+          <div class="sig-name" contenteditable="true">( Arthur Reezan )</div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 2: SHEET 3 - ABSENSI MINESKI SPACE     -->
+    <!-- ========================================== -->
+    <div id="viewSheet3" style="display: none;">
+      <div class="absensi-header-grid">
+        <div class="absensi-company-info">
+          <b>PT. TEKNOLOGI ABADI SEJAHTERA</b><br>
+          Mineski Creative Space<br>
+          Jl. Tj. Duren Utara IIIF No.92, RW.3<br>
+          Tj. Duren Utara, Kec. Grogol Petamburan<br>
+          Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470
+        </div>
+        <div>
+          <img src="assets/image3.png" alt="Mineski Indonesia" class="absensi-logo-img">
+        </div>
+      </div>
+
+      <div class="absensi-doc-title">FORMULIR ABSENSI EXTERNAL</div>
+
+      <table class="absensi-meta-table">
         <tr>
-          <td class="meta-label">No. Dokumen:</td>
-          <td class="meta-val"><input type="text" class="input-edit text-right" id="invNumber" value="INV/MDL-UKRIDA/2025/001" style="width: 165px; font-weight: 700;"></td>
+          <td style="width: 15%; font-weight: 600;">Kode Project</td>
+          <td style="width: 35%;">: 26ID-M-E033</td>
+          <td style="width: 20%; font-weight: 600;">Lokasi Pelaksanaan</td>
+          <td style="width: 30%;">: Mineski Creative Space</td>
         </tr>
         <tr>
-          <td class="meta-label">Tanggal Cetak:</td>
-          <td class="meta-val"><input type="text" class="input-edit text-right" id="invDateText" value="31 Oktober 2025" style="width: 140px; font-weight: 600;"></td>
-        </tr>
-        <tr>
-          <td class="meta-label">Jatuh Tempo:</td>
-          <td class="meta-val"><input type="text" class="input-edit text-right" id="invDueDateText" value="07 November 2025" style="width: 140px; font-weight: 600;"></td>
-        </tr>
-        <tr>
-          <td class="meta-label">No. PO / SPK:</td>
-          <td class="meta-val"><input type="text" class="input-edit text-right" id="invPoNumber" value="PO-TAS/MDL/2025/10" placeholder="-" style="width: 165px; font-weight: 600;"></td>
-        </tr>
-        <tr>
-          <td class="meta-label">Kegiatan:</td>
-          <td class="meta-val"><input type="text" class="input-edit text-right" id="invProjectCode" value="MDL ESPORTS INDONESIA" style="width: 165px; font-weight: 600;"></td>
+          <td style="font-weight: 600;">Nama Project</td>
+          <td>: MDL S14 Regular Season</td>
+          <td style="font-weight: 600;">Tanggal Pelaksanaan</td>
+          <td>: 28 Juli 2026</td>
         </tr>
       </table>
-    </div>
-  </div>
 
-  <!-- TITLE -->
-  <div class="doc-title-block">
-    <div class="doc-title">INVOICE & REKAPITULASI HONORARIUM PANITIA</div>
-    <div class="doc-subinfo">Rekapitulasi Honorarium Pasukan Mahasiswa UKRIDA — MDL Esports Indonesia</div>
-  </div>
+      <table class="absensi-table">
+        <thead>
+          <tr>
+            <th style="width: 6%;">NO</th>
+            <th style="width: 34%;">NAMA</th>
+            <th style="width: 22%;">POSISI DALAM EVENT</th>
+            <th style="width: 14%;">CHECK IN</th>
+            <th style="width: 14%;">CHECK OUT</th>
+            <th style="width: 10%;">SIGN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td style="text-align: left;">Abdul fatah gondo kusumo</td>
+            <td>Porter</td>
+            <td>10:00</td>
+            <td>03:00</td>
+            <td><img src="assets/image6.png" class="sign-img" alt="Sign"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td style="text-align: left;">ARDHI DWIYANA SUMARNA</td>
+            <td>Porter</td>
+            <td>10:00</td>
+            <td>03:00</td>
+            <td><img src="assets/image2.png" class="sign-img" alt="Sign"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td style="text-align: left;">Muhamad Ali maksum</td>
+            <td>Porter</td>
+            <td>10:00</td>
+            <td>03:00</td>
+            <td><img src="assets/image8.png" class="sign-img" alt="Sign"></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td style="text-align: left;">Muhammad Ridwan Hidayat</td>
+            <td>Porter</td>
+            <td>10:00</td>
+            <td>03:00</td>
+            <td><img src="assets/image9.png" class="sign-img" alt="Sign"></td>
+          </tr>
+        </tbody>
+      </table>
 
-  <!-- PARTIES BOX -->
-  <div class="parties-wrapper">
-    <div class="party-col">
-      <h4>Ditujukan Kepada (Penyelenggara / Klien):</h4>
-      <input type="text" class="input-edit party-name" id="clientName" value="PT. Teknologi Abadi Sejahtera" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="clientInstitution" value="U.p. Pak Hudi (PIC Acara & Tim Manajemen MDL)" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="clientAddress" value="Jl. Tanjung Duren Barat I, 5, Tanjung Duren Utara" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="clientContact" value="Grogol Petamburan, Kota Adm. Jakarta Barat, DKI Jakarta 11470" style="width: 100%;">
-    </div>
-
-    <div class="party-col">
-      <h4>Diterbitkan Oleh (Koordinator Lapangan):</h4>
-      <input type="text" class="input-edit party-name" id="senderName" value="Tim Pasukan Mahasiswa UKRIDA" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="senderCoordinator" value="Arthur Reezan (Koordinator Pasukan Mahasiswa)" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="senderCampus" value="Universitas Kristen Krida Wacana (UKRIDA)" style="width: 100%;">
-      <input type="text" class="input-edit party-sub" id="senderContact" value="Kontak: Arthur Freelance Inquiries" style="width: 100%;">
-    </div>
-  </div>
-
-  <!-- TABLE -->
-  <table class="invoice-table" id="workersTable">
-    <thead>
-      <tr>
-        <th style="width: 4%;" class="text-center">No</th>
-        <th style="width: 32%;">Nama Mahasiswa</th>
-        <th style="width: 18%;">NIM</th>
-        <th style="width: 26%;">Divisi / Penugasan</th>
-        <th style="width: 18%;" class="text-right">Total Honor</th>
-        <th class="col-action text-center no-print" style="width: 2%;">✕</th>
-      </tr>
-    </thead>
-    <tbody id="workersBody">
-      <!-- Generated Rows -->
-    </tbody>
-  </table>
-
-  <button class="btn-add-row no-print" onclick="addWorkerRow()">➕ Tambah Baris Mahasiswa</button>
-
-  <!-- SUMMARY & BANK DETAILS -->
-  <div class="summary-grid">
-    <div class="bank-box">
-      <h4>🏦 Rekening Pembayaran (Penampung Resmi)</h4>
-      <div class="bank-row">
-        <span style="color: var(--text-muted);">Bank Penerima:</span>
-        <input type="text" class="input-edit text-right" id="bankName" value="BCA (Bank Central Asia)" style="width: 180px; font-weight: 600;">
-      </div>
-      <div class="bank-row">
-        <span style="color: var(--text-muted);">Nomor Rekening:</span>
-        <input type="text" class="input-edit text-right" id="bankAccNo" value="123-456-7890" style="width: 180px; font-weight: 700;">
-      </div>
-      <div class="bank-row">
-        <span style="color: var(--text-muted);">Atas Nama (A/N):</span>
-        <input type="text" class="input-edit text-right" id="bankAccName" value="Arthur Reezan" style="width: 180px; font-weight: 600;">
-      </div>
-      <div style="margin-top: 8px; font-size: 10px; color: var(--text-muted); line-height: 1.45; border-top: 1px dashed var(--border); padding-top: 6px;">
-        <div>• <b>Status Perpajakan:</b> Tagihan Non-PKP (Bebas / Tidak Memungut PPN 11%).</div>
-        <div>• <b>Sifat Pembayaran:</b> Netto (diterima bersih untuk langsung disalurkan ke 16 panitia).</div>
-        <div>• Bukti konfirmasi transfer mohon dikirimkan kepada Koordinator Lapangan.</div>
+      <div class="pj-sign-box">
+        <div>Penanggung Jawab</div>
+        <img src="assets/image5.png" class="pj-sign-img" alt="Ttd Muhammad Salehudi">
+        <div style="font-weight: bold;">Muhammad Salehudi</div>
+        <div style="font-size: 12px; color: #475569;">Project Manager</div>
       </div>
     </div>
 
-    <div class="calc-box">
-      <div class="calc-row">
-        <span>Total Panitia Mahasiswa:</span>
-        <span id="summaryTotalCrew" style="font-weight: 600;">16 Orang</span>
-      </div>
-      <div class="calc-row">
-        <span>Subtotal Honorarium:</span>
-        <span id="subtotalWorkersText" style="font-weight: 600;">Rp 0</span>
-      </div>
-      <div class="calc-row" style="align-items: center;">
-        <span>Uang Muka / Kasbon (DP):</span>
-        <div style="display: flex; align-items: center; gap: 3px;">
-          <span style="color: var(--danger); font-weight: 600;">- Rp</span>
-          <input type="number" id="downPaymentInput" value="0" min="0" oninput="calculateAll()" style="width: 95px; text-align: right; padding: 2px 4px; border: 1px solid var(--border); border-radius: 3px;">
+
+    <!-- ========================================== -->
+    <!-- TAB 3: SHEET 4 - ABSENSI BALI UNITED       -->
+    <!-- ========================================== -->
+    <div id="viewSheet4" style="display: none;">
+      <div class="absensi-header-grid">
+        <div class="absensi-company-info">
+          <b>PT. TEKNOLOGI ABADI SEJAHTERA</b><br>
+          Mineski Creative Space<br>
+          Jl. Tj. Duren Utara IIIF No.92, RW.3<br>
+          Tj. Duren Utara, Kec. Grogol Petamburan<br>
+          Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470
+        </div>
+        <div>
+          <img src="assets/image3.png" alt="Mineski Indonesia" class="absensi-logo-img">
         </div>
       </div>
-      <div class="calc-row grand-total">
-        <span>TOTAL DIBAYARKAN:</span>
-        <span id="grandTotalText" style="color: var(--primary-accent);">Rp 0</span>
-      </div>
-      <div class="terbilang-banner" id="terbilangBox">
-        <b>Terbilang:</b> Nol Rupiah
+
+      <div class="absensi-doc-title">FORMULIR ABSENSI EXTERNAL</div>
+
+      <table class="absensi-meta-table">
+        <tr>
+          <td style="width: 15%; font-weight: 600;">Kode Project</td>
+          <td style="width: 35%;">: 26ID-M-E033</td>
+          <td style="width: 20%; font-weight: 600;">Lokasi Pelaksanaan</td>
+          <td style="width: 30%;">: Bali United Studio</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600;">Nama Project</td>
+          <td>: MDL S14 Regular Season</td>
+          <td style="font-weight: 600;">Tanggal Pelaksanaan</td>
+          <td>: 30 Juli 2026</td>
+        </tr>
+      </table>
+
+      <table class="absensi-table">
+        <thead>
+          <tr>
+            <th style="width: 6%;">NO</th>
+            <th style="width: 34%;">NAMA</th>
+            <th style="width: 22%;">POSISI DALAM EVENT</th>
+            <th style="width: 14%;">CHECK IN</th>
+            <th style="width: 14%;">CHECK OUT</th>
+            <th style="width: 10%;">SIGN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td style="text-align: left;">Deni Yanto</td>
+            <td>Porter</td>
+            <td>00:30</td>
+            <td>07:00</td>
+            <td><img src="assets/image4.png" class="sign-img" alt="Sign"></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td style="text-align: left;">farhansyah</td>
+            <td>Porter</td>
+            <td>00:30</td>
+            <td>07:00</td>
+            <td><img src="assets/image7.png" class="sign-img" alt="Sign"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td style="text-align: left;">Radit febriyansah</td>
+            <td>Porter</td>
+            <td>00:30</td>
+            <td>07:00</td>
+            <td><img src="assets/image1.png" class="sign-img" alt="Sign"></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pj-sign-box">
+        <div>Penanggung Jawab</div>
+        <img src="assets/image5.png" class="pj-sign-img" alt="Ttd Muhammad Salehudi">
+        <div style="font-weight: bold;">Muhammad Salehudi</div>
+        <div style="font-size: 12px; color: #475569;">Project Manager</div>
       </div>
     </div>
-  </div>
 
-  <!-- LEMBAR PENGESAHAN 4 PIHAK -->
-  <div class="signatures-container">
-    <div class="sig-card">
-      <div class="sig-role">Diajukan Oleh,<br>(Koordinator Pasukan)</div>
-      <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
-        <div class="meterai-badge" title="Area Meterai Rp 10.000 (UU Bea Meterai No. 10/2020)">
-          Meterai<br>Rp 10.000
+
+    <!-- ========================================== -->
+    <!-- TAB 4: SHEET 5 - ABSENSI KAMPUS UKRIDA 2   -->
+    <!-- ========================================== -->
+    <div id="viewSheet5" style="display: none;">
+      <div class="absensi-header-grid">
+        <div class="absensi-company-info">
+          <b>PT. TEKNOLOGI ABADI SEJAHTERA</b><br>
+          Mineski Creative Space<br>
+          Jl. Tj. Duren Utara IIIF No.92, RW.3<br>
+          Tj. Duren Utara, Kec. Grogol Petamburan<br>
+          Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11470
         </div>
-        <div class="sig-line"></div>
-        <div class="sig-name">Arthur Reezan</div>
-        <div class="sig-title">Koordinator Mahasiswa UKRIDA</div>
+        <div>
+          <img src="assets/image3.png" alt="Mineski Indonesia" class="absensi-logo-img">
+        </div>
+      </div>
+
+      <div class="absensi-doc-title">FORMULIR ABSENSI EXTERNAL</div>
+
+      <table class="absensi-meta-table">
+        <tr>
+          <td style="width: 15%; font-weight: 600;">Kode Project</td>
+          <td style="width: 35%;">: 26ID-M-E046</td>
+          <td style="width: 20%; font-weight: 600;">Lokasi Pelaksanaan</td>
+          <td style="width: 30%;">: Kampus Ukrida 2</td>
+        </tr>
+        <tr>
+          <td style="font-weight: 600;">Nama Project</td>
+          <td>: MDL S14 Playoffs</td>
+          <td style="font-weight: 600;">Tanggal Pelaksanaan</td>
+          <td>: 28 Oktober 2026</td>
+        </tr>
+      </table>
+
+      <table class="absensi-table">
+        <thead>
+          <tr>
+            <th style="width: 6%;">NO</th>
+            <th style="width: 34%;">NAMA</th>
+            <th style="width: 22%;">POSISI DALAM EVENT</th>
+            <th style="width: 14%;">CHECK IN</th>
+            <th style="width: 14%;">CHECK OUT</th>
+            <th style="width: 10%;">SIGN</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td style="text-align: left;">Muhammad Ivan Mukti</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>2</td><td style="text-align: left;">Khadavi Tristan Nugraha</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>3</td><td style="text-align: left;">Muhammad Riyandi Putra</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>4</td><td style="text-align: left;">Achmad Rafi Firjatullah</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>5</td><td style="text-align: left;">Ahmad fahri</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>6</td><td style="text-align: left;">Mahnabyan Priyatama</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>7</td><td style="text-align: left;">Fazar Cahyo Nugroho</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>8</td><td style="text-align: left;">Fazly Azka Kurniawan</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>9</td><td style="text-align: left;">Ferdian Dwi Fitama</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+          <tr><td>10</td><td style="text-align: left;">Argya Shafa Ramadhan</td><td>Dummy</td><td>07:00</td><td>02:00</td><td>✓</td></tr>
+        </tbody>
+      </table>
+
+      <div class="pj-sign-box">
+        <div>Penanggung Jawab</div>
+        <img src="assets/image10.png" class="pj-sign-img" alt="Ttd Muhammad Salehudi">
+        <div style="font-weight: bold;">Muhammad Salehudi</div>
+        <div style="font-size: 12px; color: #475569;">Project Manager</div>
       </div>
     </div>
 
-    <div class="sig-card">
-      <div class="sig-role">Diverifikasi Oleh,<br>(Bendahara)</div>
-      <div>
-        <div class="sig-line"></div>
-        <div class="sig-name">Sylvia Stevanie</div>
-        <div class="sig-title">Bendahara Pelaksana</div>
-      </div>
-    </div>
-
-    <div class="sig-card">
-      <div class="sig-role">Disetujui Oleh,<br>(Pimpinan Kemahasiswaan)</div>
-      <div>
-        <div class="sig-line"></div>
-        <div class="sig-name">Daniel Hutapea</div>
-        <div class="sig-title">Ka. Unit Kemahasiswaan UKRIDA</div>
-      </div>
-    </div>
-
-    <div class="sig-card">
-      <div class="sig-role">Diterima & Disahkan Oleh,<br>(Penyelenggara / Klien)</div>
-      <div>
-        <div class="sig-line"></div>
-        <div class="sig-name">Pak Hudi</div>
-        <div class="sig-title">PT. Teknologi Abadi Sejahtera</div>
-      </div>
-    </div>
   </div>
 
-</div>
+  <script>
+    function switchSheet(sheetId, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-<script>
-  function formatIDR(num) {
-    return 'Rp ' + Number(num).toLocaleString('id-ID');
-  }
+      document.getElementById('viewSheet1').style.display = 'none';
+      document.getElementById('viewSheet3').style.display = 'none';
+      document.getElementById('viewSheet4').style.display = 'none';
+      document.getElementById('viewSheet5').style.display = 'none';
 
-  function parseNumber(val) {
-    const n = parseFloat(val);
-    return isNaN(n) ? 0 : n;
-  }
-
-  function addWorkerRow(data = {}) {
-    const tbody = document.getElementById('workersBody');
-    const tr = document.createElement('tr');
-    tr.className = 'worker-row';
-    
-    let honor = 0;
-    if (data.honor !== undefined) {
-      honor = data.honor;
-    } else if (data.totalHours !== undefined && data.rate !== undefined) {
-      honor = Math.round(data.totalHours * (150000 / 11));
-    } else if (data.days !== undefined) {
-      honor = data.days * 150000;
+      if (sheetId === 'sheet1') document.getElementById('viewSheet1').style.display = 'block';
+      if (sheetId === 'sheet3') document.getElementById('viewSheet3').style.display = 'block';
+      if (sheetId === 'sheet4') document.getElementById('viewSheet4').style.display = 'block';
+      if (sheetId === 'sheet5') document.getElementById('viewSheet5').style.display = 'block';
     }
 
-    tr.innerHTML = `
-      <td class="text-center row-num" style="color: var(--text-muted); font-weight: 600;"></td>
-      <td><input type="text" class="worker-name" placeholder="Nama Mahasiswa" value="${data.name || ''}" oninput="saveAndRecalc()"></td>
-      <td><input type="text" class="worker-nim text-center" placeholder="NIM" value="${data.nim || ''}" oninput="saveAndRecalc()"></td>
-      <td><input type="text" class="worker-role" placeholder="Divisi / Tugas" value="${data.role || ''}" oninput="saveAndRecalc()"></td>
-      <td><input type="number" class="worker-honor text-right" placeholder="0" min="0" step="1000" value="${honor}" oninput="calculateWorkerRow(this)" style="font-weight: 700;"></td>
-      <td class="col-action text-center no-print">
-        <button class="btn-delete-row" onclick="removeRow(this)">✕</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-    renumberRows();
-    calculateWorkerRow(tr.querySelector('.worker-honor'));
-  }
+    function formatNumber(num) {
+      return Number(num).toLocaleString('id-ID');
+    }
 
-  function calculateWorkerRow(elem) {
-    calculateAll();
-  }
+    function recalcInvoice() {
+      let grandTotal = 0;
+      const rows = document.querySelectorAll('#invTableBody tr');
+      rows.forEach(tr => {
+        const duration = parseFloat(tr.querySelector('.item-duration')?.value) || 0;
+        const qty = parseFloat(tr.querySelector('.item-qty')?.value) || 0;
+        const rate = parseFloat(tr.querySelector('.item-rate')?.value) || 0;
+        const subtotal = duration * qty * rate;
+        grandTotal += subtotal;
 
-  function removeRow(btn) {
-    const row = btn.closest('tr');
-    row.remove();
-    renumberRows();
-    calculateAll();
-    saveToStorage();
-  }
-
-  function renumberRows() {
-    const workerRows = document.querySelectorAll('#workersBody tr');
-    workerRows.forEach((tr, idx) => {
-      tr.querySelector('.row-num').innerText = idx + 1;
-    });
-    const crewCount = document.getElementById('summaryTotalCrew');
-    if (crewCount) crewCount.innerText = workerRows.length + " Orang";
-  }
-
-  function calculateAll() {
-    let totalWorkersSubtotal = 0;
-
-    document.querySelectorAll('#workersBody tr').forEach(row => {
-      const honorInput = row.querySelector('.worker-honor');
-      if (honorInput) {
-        totalWorkersSubtotal += parseNumber(honorInput.value);
-      }
-    });
-
-    const dp = parseNumber(document.getElementById('downPaymentInput').value);
-    const grandTotal = totalWorkersSubtotal - dp;
-
-    document.getElementById('subtotalWorkersText').innerText = formatIDR(totalWorkersSubtotal);
-    document.getElementById('grandTotalText').innerText = formatIDR(grandTotal > 0 ? grandTotal : 0);
-    document.getElementById('terbilangBox').innerHTML = '<b>Terbilang:</b> ' + angkaKeTerbilang(grandTotal > 0 ? grandTotal : 0) + ' Rupiah';
-
-    saveToStorage();
-  }
-
-  function saveAndRecalc() {
-    calculateAll();
-  }
-
-  function angkaKeTerbilang(bilangan) {
-    bilangan = Math.floor(Math.abs(bilangan));
-    const satuan = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
-    
-    if (bilangan < 12) return satuan[bilangan];
-    if (bilangan < 20) return angkaKeTerbilang(bilangan - 10) + " Belas";
-    if (bilangan < 100) return angkaKeTerbilang(Math.floor(bilangan / 10)) + " Puluh " + satuan[bilangan % 10];
-    if (bilangan < 200) return "Seratus " + angkaKeTerbilang(bilangan - 100);
-    if (bilangan < 1000) return angkaKeTerbilang(Math.floor(bilangan / 100)) + " Ratus " + angkaKeTerbilang(bilangan % 100);
-    if (bilangan < 2000) return "Seribu " + angkaKeTerbilang(bilangan - 1000);
-    if (bilangan < 1000000) return angkaKeTerbilang(Math.floor(bilangan / 1000)) + " Ribu " + angkaKeTerbilang(bilangan % 1000);
-    if (bilangan < 1000000000) return angkaKeTerbilang(Math.floor(bilangan / 1000000)) + " Juta " + angkaKeTerbilang(bilangan % 1000000);
-    if (bilangan < 1000000000000) return angkaKeTerbilang(Math.floor(bilangan / 1000000000)) + " Miliar " + angkaKeTerbilang(bilangan % 1000000000);
-    return "";
-  }
-
-  function saveToStorage() {
-    try {
-      const data = {
-        invNumber: document.getElementById('invNumber').value,
-        invDateText: document.getElementById('invDateText').value,
-        invDueDateText: document.getElementById('invDueDateText').value,
-        invPoNumber: document.getElementById('invPoNumber').value,
-        invProjectCode: document.getElementById('invProjectCode').value,
-        clientName: document.getElementById('clientName').value,
-        clientInstitution: document.getElementById('clientInstitution').value,
-        clientAddress: document.getElementById('clientAddress').value,
-        clientContact: document.getElementById('clientContact').value,
-        senderName: document.getElementById('senderName').value,
-        senderCoordinator: document.getElementById('senderCoordinator').value,
-        senderCampus: document.getElementById('senderCampus').value,
-        senderContact: document.getElementById('senderContact').value,
-        bankName: document.getElementById('bankName').value,
-        bankAccNo: document.getElementById('bankAccNo').value,
-        bankAccName: document.getElementById('bankAccName').value,
-        downPayment: document.getElementById('downPaymentInput').value,
-        workers: []
-      };
-
-      document.querySelectorAll('#workersBody tr').forEach(tr => {
-        data.workers.push({
-          name: tr.querySelector('.worker-name').value,
-          nim: tr.querySelector('.worker-nim').value,
-          role: tr.querySelector('.worker-role').value,
-          honor: parseNumber(tr.querySelector('.worker-honor').value)
-        });
+        const subtotalElem = tr.querySelector('.item-subtotal');
+        if (subtotalElem) {
+          subtotalElem.innerText = formatNumber(subtotal);
+        }
       });
 
-      localStorage.setItem('arthur_invoice_data_total_mdl_v7', JSON.stringify(data));
-    } catch(e) {}
-  }
-
-  function exportJSON() {
-    saveToStorage();
-    const data = localStorage.getItem('arthur_invoice_data_total_mdl_v7');
-    if (!data) return;
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    const invNo = (document.getElementById('invNumber').value || 'invoice').replace(/[^a-zA-Z0-9_-]/g, '_');
-    a.href = url;
-    a.download = 'Invoice_MDL_UKRIDA_' + invNo + '.json';
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function importJSON(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const data = JSON.parse(e.target.result);
-        if (data.invNumber) document.getElementById('invNumber').value = data.invNumber;
-        if (data.invDateText) document.getElementById('invDateText').value = data.invDateText;
-        if (data.invDueDateText) document.getElementById('invDueDateText').value = data.invDueDateText;
-        if (data.invPoNumber) document.getElementById('invPoNumber').value = data.invPoNumber;
-        if (data.invProjectCode) document.getElementById('invProjectCode').value = data.invProjectCode;
-        if (data.clientName) document.getElementById('clientName').value = data.clientName;
-        if (data.clientInstitution) document.getElementById('clientInstitution').value = data.clientInstitution;
-        if (data.clientAddress) document.getElementById('clientAddress').value = data.clientAddress;
-        if (data.clientContact) document.getElementById('clientContact').value = data.clientContact;
-        if (data.senderName) document.getElementById('senderName').value = data.senderName;
-        if (data.senderCoordinator) document.getElementById('senderCoordinator').value = data.senderCoordinator;
-        if (data.senderCampus) document.getElementById('senderCampus').value = data.senderCampus;
-        if (data.senderContact) document.getElementById('senderContact').value = data.senderContact;
-        if (data.bankName) document.getElementById('bankName').value = data.bankName;
-        if (data.bankAccNo) document.getElementById('bankAccNo').value = data.bankAccNo;
-        if (data.bankAccName) document.getElementById('bankAccName').value = data.bankAccName;
-        if (data.downPayment) document.getElementById('downPaymentInput').value = data.downPayment;
-
-        document.getElementById('workersBody').innerHTML = '';
-        if (data.workers && data.workers.length > 0) {
-          data.workers.forEach(w => addWorkerRow(w));
-        } else {
-          addWorkerRow();
-        }
-
-        calculateAll();
-        saveToStorage();
-        alert('Data invoice berhasil dimuat!');
-      } catch(err) {
-        alert('Format file JSON tidak valid.');
-      }
-    };
-    reader.readAsText(file);
-    event.target.value = '';
-  }
-
-  function loadDefaultPanitia() {
-    document.getElementById('workersBody').innerHTML = '';
-
-    const panitiaList = [
-      // Runner Logistic : 5 (Total Rp 6.000.000)
-      { name: "Steven Felizio", nim: "412023011", role: "Runner Logistic", honor: 1200000 },
-      { name: "Nathanael", nim: "422026010", role: "Runner Logistic", honor: 1200000 },
-      { name: "Nelson Kusuma", nim: "412023008", role: "Runner Logistic", honor: 1200000 },
-      { name: "Bryan Gandarasa", nim: "412023005", role: "Runner Logistic", honor: 1200000 },
-      { name: "Siddharta Pratama Budiono", nim: "312023017", role: "Runner Logistic", honor: 808636 },
-      
-      // Floor Officer : 6 (Total Rp 4.500.000)
-      { name: "Robert Paulus Junior Sihite", nim: "412023007", role: "Floor Officer", honor: 750000 },
-      { name: "Andreas Fransisco", nim: "412023009", role: "Floor Officer", honor: 750000 },
-      { name: "Juan Louis", nim: "322025002", role: "Floor Officer", honor: 750000 },
-      { name: "Jericco Wijaya", nim: "322025039", role: "Floor Officer", honor: 750000 },
-      { name: "Varlent Alberta Gunawan", nim: "422023028", role: "Floor Officer", honor: 750000 },
-      { name: "Justin Ansell Wibisono", nim: "322025038", role: "Floor Officer", honor: 750000 },
-
-      // Manpower Registration : 2 (Total Rp 1.200.000)
-      { name: "Chelsea Claudia", nim: "312026017", role: "Registration Officer", honor: 600000 },
-      { name: "Shania Ferliany Wi", nim: "312025042", role: "Registration Officer", honor: 600000 },
-
-      // Broadcast Officer : 1 (Total Rp 1.591.364)
-      { name: "Kristofer Ryan Giggs Eka Saputra", nim: "412024005", role: "Broadcast Officer", honor: 1591364 },
-
-      // Usher Awarding : 2 (Total Rp 600.000)
-      { name: "Cristabel Grasilia Angelica", nim: "422026008", role: "Usher Awarding", honor: 300000 },
-      { name: "Gaby", nim: "[Menunggu Konfirmasi]", role: "Usher Awarding", honor: 300000 }
-    ];
-
-    panitiaList.forEach(p => addWorkerRow(p));
-    calculateAll();
-  }
-
-  function clearAllData() {
-    if (confirm("Kosongkan semua baris data?")) {
-      document.getElementById('workersBody').innerHTML = '';
-      document.getElementById('downPaymentInput').value = 0;
-      addWorkerRow();
-      calculateAll();
-      localStorage.removeItem('arthur_invoice_data_total_mdl_v7');
+      document.getElementById('invGrandTotal').innerText = formatNumber(grandTotal);
     }
-  }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const saved = localStorage.getItem('arthur_invoice_data_total_mdl_v7');
-    if (saved) {
-      try {
-        const data = JSON.parse(saved);
-        if (data.workers && data.workers.length > 0) {
-          if (data.invPoNumber) document.getElementById('invPoNumber').value = data.invPoNumber;
-          if (data.clientName) document.getElementById('clientName').value = data.clientName;
-          if (data.clientInstitution) document.getElementById('clientInstitution').value = data.clientInstitution;
-          if (data.clientAddress) document.getElementById('clientAddress').value = data.clientAddress;
-          if (data.clientContact) document.getElementById('clientContact').value = data.clientContact;
-          data.workers.forEach(w => addWorkerRow(w));
-          calculateAll();
-          return;
-        }
-      } catch(e) {}
+    function deleteRow(btn) {
+      const row = btn.closest('tr');
+      row.remove();
+      recalcInvoice();
     }
-    loadDefaultPanitia();
-  });
-</script>
 
+    function addInvoiceRow() {
+      const tbody = document.getElementById('invTableBody');
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="ROLE / DIVISI" oninput="recalcInvoice()"></td>
+        <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+        <td><input type="text" class="editable-cell" style="text-align: center;" value="26/10/2026 - 01/11/2026"></td>
+        <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+        <td class="col-amount">
+          <span style="float: left;">IDR</span>
+          <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+        </td>
+        <td class="col-total">
+          <span style="float: left;">IDR</span>
+          <span class="item-subtotal">150.000</span>
+        </td>
+        <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+      `;
+      tbody.appendChild(tr);
+      recalcInvoice();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      recalcInvoice();
+    });
+  </script>
 </body>
 </html>

@@ -213,6 +213,12 @@
       font-weight: normal;
     }
 
+    .invoice-table td.col-name input {
+      width: 100%;
+      font-size: 12.5px;
+      letter-spacing: -0.2px;
+    }
+
     .invoice-table td.col-amount {
       text-align: right;
       padding-right: 12px;
@@ -539,12 +545,12 @@
       <table class="invoice-table" id="invTable">
         <thead>
           <tr>
-            <th style="width: 24%;">Name</th>
-            <th style="width: 14%;">DURATION (hari)</th>
-            <th style="width: 22%;">WORK PERIOD</th>
-            <th style="width: 10%;">QTY</th>
+            <th style="width: 28%;">Name</th>
+            <th style="width: 12%;">DURATION (hari)</th>
+            <th style="width: 20%;">WORK PERIOD</th>
+            <th style="width: 9%;">QTY</th>
             <th style="width: 15%;">AMOUNT</th>
-            <th style="width: 15%;">TOTAL AMOUNT</th>
+            <th style="width: 16%;">TOTAL AMOUNT</th>
             <th class="no-print" style="width: 2%;"></th>
           </tr>
         </thead>
@@ -633,6 +639,57 @@
             </td>
             <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
           </tr>
+
+          <!-- Row 6: SOCIAL MEDIA OFFICERS -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="SOCIAL MEDIA OFFICERS" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="4" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="29/10/2026 - 01/11/2026"></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">600.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+
+          <!-- Row 7: UKM DANCE UKRIDA -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="UKM DANCE UKRIDA" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="01/11/2026"></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">150.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
+
+          <!-- Row 8: UKM SENI TARI TRADISIONAL UKRIDA -->
+          <tr>
+            <td class="col-name"><input type="text" class="editable-cell" style="text-align: center;" value="UKM SENI TARI TRADISIONAL UKRIDA" oninput="recalcInvoice()"></td>
+            <td><input type="number" class="editable-cell item-duration" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+            <td><input type="text" class="editable-cell" style="text-align: center;" value="29/10/2026"></td>
+            <td><input type="number" class="editable-cell item-qty" style="text-align: center;" value="1" min="0" oninput="recalcInvoice()"></td>
+            <td class="col-amount">
+              <span style="float: left;">IDR</span>
+              <input type="number" class="editable-cell item-rate" style="text-align: right; width: 70%;" value="150000" step="5000" oninput="recalcInvoice()">
+            </td>
+            <td class="col-total">
+              <span style="float: left;">IDR</span>
+              <span class="item-subtotal">150.000</span>
+            </td>
+            <td class="no-print"><button class="row-btn" onclick="deleteRow(this)">✕</button></td>
+          </tr>
         </tbody>
       </table>
 
@@ -652,7 +709,7 @@
         </div>
         <div class="meta-right-total">
           <span class="total-label">Total</span>
-          <span class="total-value" id="invGrandTotal">13.500.000</span>
+          <span class="total-value" id="invGrandTotal">14.400.000</span>
         </div>
       </div>
 

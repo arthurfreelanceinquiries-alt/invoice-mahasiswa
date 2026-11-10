@@ -1,0 +1,150 @@
+# 📋 Invoice & Payroll Jam Kerja Panitia Mahasiswa (MDL Esports Edition)
+
+> **Sistem Pembuatan Dokumen Invoice & Rekapitulasi Honorarium Panitia Mahasiswa Berbasis Jam Kerja.**  
+> Dirancang khusus untuk event **MDL Esports Indonesia** bersama **Universitas Kristen Krida Wacana (UKRIDA)**.  
+> Standar A4 Print-Ready, Portabel Tanpa Backend, Dilengkapi Fitur Auto-Save LocalStorage, Quick-Apply Tarif/Jam, Slip Individu Transparansi Mahasiswa, & Export/Import JSON.
+
+---
+
+## 🌟 2 Modul Utama Dokumen
+
+Proyek ini menyediakan 2 halaman dokumen yang terintegrasi langsung:
+
+### 1. 📄 Invoice Master & Rekapitulasi Kumulatif (`index.html`)
+*Ditujukan untuk Pak Hudi & Tim Manajemen Penyelenggara MDL Esports:*
+- **Rekapitulasi Total Kumulatif:** Menyajikan total tagihan seluruh pasukan mahasiswa selama periode **Senin s.d. Senin** (8 hari operasional) tanpa rincian invoice harian terpisah.
+- **Tanpa Rembesan Operasional:** Dokumen fokus murni pada honorarium jasa tenaga kerja panitia.
+- **Tanda Tangan 4 Pihak:**
+  - Diajukan: Koordinator Pasukan Mahasiswa
+  - Diverifikasi: Bendahara Pelaksana
+  - Disetujui: Kepala Unit Kemahasiswaan
+  - Diterima / Disahkan: PIC Acara & Penyelenggara
+
+### 2. 🧾 Slip Rincian & Transparansi Jam Kerja Mahasiswa (`slip.html`)
+*Ditujukan untuk masing-masing mahasiswa (16 Orang) sebagai bukti transparansi & rincian penerimaan honor:*
+- **Rumus Dasar Penggajian:** 
+  $$\text{Tarif Dasar} = \text{Rp } 150.000 \text{ / Hari (11 Jam Kerja Efektif)}$$
+  $$\text{Tarif per Jam} = \frac{\text{Rp } 150.000}{11 \text{ Jam}} \approx \text{Rp } 13.636,36 \text{ / Jam}$$
+- **Potongan Keterlambatan Presisi:** Jika mahasiswa terlambat atau pulang lebih awal, honor dihitung proporsional sesuai jam kerja aktual ($\text{Jam Kerja} \times \text{Tarif per Jam}$), dan jam potongan ditampilkan secara transparan.
+- **Timesheet Harian Day 1 s.d. Day 8:** Rincian status kehadiran harian, jam shift, jam kerja aktual, jam potongan terlambat, dan catatan khusus.
+- **Selector Mahasiswa Instan:** Dropdown memilih 16 panitia (Logistic, Floor, Registration, Broadcast, Usher) dengan auto-fill NIM, jobdesk, dan riwayat jam.
+- **Lembar Tanda Terima 3 Pihak:**
+  - Dibuat Oleh: Koordinator Pasukan
+  - Diverifikasi: Bendahara Pelaksana
+  - Diterima Oleh: Mahasiswa yang Bersangkutan (Bukti Tanda Terima)
+
+---
+
+## 👥 Data Pasukan Mahasiswa (16 Orang — Sanitized Dummy Data)
+
+1. **Runner Logistic (5 Orang):**
+   - Dimas Pratama (NIM: 412023001)
+   - Budi Santoso (NIM: 412023002)
+   - Candra Wijaya (NIM: 412023003)
+   - Kevin Adriansyah (NIM: 412023004)
+   - Rizky Ramadhan (NIM: 412023005)
+
+2. **Floor Officer (6 Orang):**
+   - Fajar Hidayat (NIM: 412023006)
+   - Gilang Perdana (NIM: 412023007)
+   - Hendra Gunawan (NIM: 412023008)
+   - Irfan Maulana (NIM: 412023009)
+   - Joko Susilo (NIM: 412023010)
+   - Aditya Pratama (NIM: 412023011)
+
+3. **Manpower Registration (2 Orang):**
+   - Larasati Putri (NIM: 412023012)
+   - Maya Anggraini (NIM: 412023013)
+
+4. **Broadcast Officer (1 Orang):**
+   - Nico Fernando (NIM: 412023014)
+
+5. **Usher Awarding (2 Orang):**
+   - Olivia Amanda (NIM: 412023015)
+   - Putri Wulandari (NIM: 412023016)
+
+---
+
+## 🚀 Akses & Penggunaan
+
+### 1. Buka Langsung di Web (GitHub Pages)
+- **Invoice Master (Pak Hudi):**  
+  👉 **[https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/](https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/)**
+- **Slip Rincian Mahasiswa (Per Orang):**  
+  👉 **[https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/slip.html](https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/slip.html)**
+
+### 2. Ekspor ke PDF / Cetak
+1. Klik tombol **🖨️ Cetak / PDF (A4)** di pojok kanan atas atau gunakan shortcut `Ctrl + P`.
+2. Pilih printer **Save as PDF** dengan kertas ukuran **A4**.
+3. Pastikan opsi **Background graphics** dicentang agar estetika tabel dan badge tercetak sempurna.
+4. Klik **Save**.
+
+---
+
+## 🚀 Zero Tab Bloat: WhatsApp 1-Tab Dispatcher
+
+Fitur **💬 Dispatcher WhatsApp** di `slip.html` bisa mengirim slip ke 16 mahasiswa tanpa
+membuka 16 tab WhatsApp Web. Ada dua jalur yang sama-sama menjamin **satu tab dipakai ulang**.
+
+### Kenapa `window.open` tidak cukup?
+
+`web.whatsapp.com` menerapkan **Cross-Origin Opener Policy (COOP)** dan isolasi browsing context.
+Saat tab WhatsApp Web dibuka dari GitHub Pages, browser memutus hubungan `window.opener`
+antar-origin. Akibatnya `window.open(url, 'Arthur_MDL_WhatsApp_Web')` berikutnya **tidak bisa
+menemukan tab lama** dan selalu membuat tab baru — 16 mahasiswa = 16 tab, RAM membengkak.
+
+Solusinya memakai API browser yang tidak terpengaruh COOP:
+
+| Jalur | Mekanisme | Hasil |
+| --- | --- | --- |
+| **Ekstensi Chrome (utama)** | `chrome.tabs.query` + `chrome.tabs.update` | 100% satu tab WhatsApp Web dipakai ulang |
+| **Userscript v3.0 (alternatif)** | `GM_setValue` + `GM_addValueChangeListener` lintas-tab | Satu tab WhatsApp Web dinavigasi ulang, tanpa tab baru |
+| **Fallback tanpa install** | `window.open(url, getTargetTabName())` | Perilaku lama (bisa multi-tab) |
+
+### A. Pasang Ekstensi Chrome (disarankan)
+
+1. Unduh / clone repositori ini.
+2. Buka `chrome://extensions` di Chrome, Edge, atau Brave.
+3. Aktifkan **Developer mode** (toggle kanan atas).
+4. Klik **Load unpacked**, lalu pilih folder **`extension/`** (folder yang berisi `manifest.json`).
+5. Pastikan ekstensi **Arthur MDL WhatsApp Dispatcher v3.0.0** berstatus **On**.
+6. Buka / refresh
+   **[slip.html](https://arthurfreelanceinquiries-alt.github.io/invoice-mahasiswa/slip.html)**,
+   lalu buka modal **💬 Dispatcher WhatsApp**.
+7. Badge di modal harus berubah menjadi
+   **🟢 Mode 1-Tab Otomatis Aktif (Zero Tab Bloat)**.
+
+Ekstensi hanya meminta izin `tabs` + `storage` dan hanya berjalan di `slip.html`,
+`web.whatsapp.com`, `api.whatsapp.com`, serta `localhost`. Tidak ada data yang dikirim ke server
+pihak ketiga.
+
+### B. Pasang Userscript Tampermonkey v3.0
+
+1. Pasang ekstensi browser
+   **[Tampermonkey](https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)**.
+2. Buka dashboard Tampermonkey → **Create a new script**.
+3. Ganti seluruh isi dengan file
+   **[`whatsapp-autosend.user.js`](https://raw.githubusercontent.com/arthurfreelanceinquiries-alt/invoice-mahasiswa/main/whatsapp-autosend.user.js)**
+   (versi **3.0**), lalu **Save**.
+4. Refresh `slip.html`. Modal WhatsApp akan menampilkan badge
+   **🟢 Mode 1-Tab Otomatis Aktif (Zero Tab Bloat)** dengan label *Userscript Tampermonkey v3.0*.
+5. Login WhatsApp Web sekali (scan QR). Setelah itu setiap klik **📲 Buka WA** atau
+   **⚡ Kirim Semua Terpilih** akan memakai tab WhatsApp Web yang sama.
+
+> **Catatan:** jika ekstensi dan userscript aktif bersamaan, dispatcher ekstensi yang menangani
+> pengiriman dan userscript otomatis *stand-down* untuk mencegah pesan ganda. Tetap disarankan
+> memilih salah satu jalur saja.
+
+### C. Cara Verifikasi
+
+- Buka modal WhatsApp → badge hijau **🟢 Mode 1-Tab Otomatis Aktif** muncul.
+- Kirim ke beberapa mahasiswa → jumlah tab WhatsApp Web tetap **1**.
+- Setelah pesan terkirim, status baris berubah menjadi **✅ Terkirim (HH:MM)** dan counter
+  **Terkirim** bertambah otomatis (sinyal `MDL_STUDENT_SENT`).
+- Tab WhatsApp Web **tidak pernah ditutup**, sehingga antrean berikutnya langsung memakainya.
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dirilis di bawah lisensi [MIT License](LICENSE).
